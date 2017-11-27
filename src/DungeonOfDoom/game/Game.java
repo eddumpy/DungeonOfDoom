@@ -31,7 +31,7 @@ public class Game extends JFrame implements ActionListener {
 	private JTextField name;
 	private String title = "Dungeon of Doom";
 	public static String nameText;
-	
+	//test
 	public Game() {
 		
 		frame = new JFrame(title);
