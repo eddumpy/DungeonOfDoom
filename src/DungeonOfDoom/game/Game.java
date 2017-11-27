@@ -32,6 +32,7 @@ public class Game extends JFrame implements ActionListener {
 	private String title = "Dungeon of Doom";
 	public static String nameText;
 	//test
+	//test2
 	public Game() {
 		
 		frame = new JFrame(title);
