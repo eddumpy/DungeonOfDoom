@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -31,8 +32,7 @@ public class Game extends JFrame implements ActionListener {
 	private JTextField name;
 	private String title = "Dungeon of Doom";
 	public static String nameText;
-	//test
-	//test2
+	
 	public Game() {
 		
 		frame = new JFrame(title);
@@ -122,14 +122,26 @@ public class Game extends JFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 		
 		if(cmd.equals("Start")) {
-            frame.dispose();
-            new DungeonOfDoom();
+			if (name.getText().equals("Please enter your name...")) {
+				JOptionPane.showMessageDialog(frame, "Please enter your name in the text box provided.");
+			}
+			else {
+				nameText = name.getText();
+				frame.dispose();
+				new DungeonOfDoom();
+			}
+            
         }
 		if(cmd.equals("Exit")) {
 			System.exit(0);
         }
-		
-		     
+		   
 	}
+
+	public static String getNameText() {
+		return nameText;
+	}
+
+
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Map {
 
-	public int[][] map = new int[20][20];
+	public char[][] map = new char[20][20];
 	public int rows = map.length;
 	public int cols = map[0].length; // Since square map, just need length of
 										// one row to get number of columns.
@@ -17,11 +17,11 @@ public class Map {
 	public int y_pos;	
 	public int bx_pos;
 	public int by_pos;
-	public ArrayList<int[][]> mapList=new ArrayList<>();
+	public ArrayList<char[][]> mapList=new ArrayList<>();
 	public Map() {
 		
 	}
-	public Map(int[][] newmap) {
+	public Map(char[][] newmap) {
 		this.map=newmap;
 		for(int i=0;i<20;i++) {
 			for(int j=0;j<20;j++) {
@@ -37,7 +37,7 @@ public class Map {
 		
 		String filepath="mapc/map"+num+".txt";   
 		File file = new File(filepath);   
-		FileReader fr = null;//利用FileReader流来读取一个文件中的数据   
+		FileReader fr = null;//use FileReader流来读取一个文件中的数据   
 		BufferedReader br = null;//字符读到缓存里      
 		try {    
 			fr = new FileReader(file);    
@@ -48,7 +48,7 @@ public class Map {
 				byte[] bytes=new byte[20];
 				bytes = line.getBytes();//将字符串转换为字节数组     
 				for (int j = 0; j < bytes.length; j++) {
-					map[i][j] = bytes[j] - 48;// 根据ASCall码表要减掉30H（十进制的48）         
+					map[i][j] = (char) (bytes[j] - 48);// 根据ASCall码表要减掉30H（十进制的48）         
 					if (map[i][j] == 2) {
 						x_pos = i;
 						y_pos = j;
@@ -125,10 +125,11 @@ public class Map {
 		}*/
 
 	}
-	public ArrayList<int[][]> getMapList() {
+	
+	public ArrayList<char[][]> getMapList() {
 		return mapList;
 	}
-	public ArrayList<int[][]> setMapList() {
+	public ArrayList<char[][]> setMapList() {
 		for(int i=0;i<5;i++)
 			mapList.add(new Map(i).getMap());
 		return mapList;
@@ -157,11 +158,11 @@ public class Map {
 		}
 		return total_gold;
 	}
-	public synchronized int[][] getMap() {
+	public synchronized char[][] getMap() {
 		return map;
 	}
 
-	public void setMap(int[][] map) {
+	public void setMap(char[][] map) {
 		this.map = map;
 	}
 	public int getX() {

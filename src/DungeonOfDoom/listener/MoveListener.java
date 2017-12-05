@@ -3,29 +3,36 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
+import DungeonOfDoom.score.Score;
 
 public class MoveListener implements KeyListener {
-	private int[][] map1;
+	private char[][] map1;
 	private int x,y;
 	private int door;
 	private boolean ToSave;
 	private boolean ToSwitch;
 	public static int count=1;
-	private ArrayList<int[][]> mapList=new ArrayList<int[][]>();
-	private int time_penalty;
+	private ArrayList<char[][]> mapList=new ArrayList<char[][]>();
+	public static int time_penalty;
 	private MapHandling mapHandling;
 	private Map newMap;
 	private SideBar side_bar;
-	public MoveListener(int[][] map,int x, int y,MapHandling mapHandling,SideBar sideBar) {
+	private JFrame frame;
+	
+	public MoveListener(char[][] map,int x, int y,MapHandling mapHandling,SideBar sideBar, JFrame frame) {
 		// TODO Auto-generated constructor stub
 		this.map1=map;
 		this.x=x;
 		this.y=y;
 		this.mapHandling=mapHandling;
 		this.side_bar=sideBar;
+		this.frame = frame;
 		for(int i=0;i<5;i++)
 			mapList.add(null);
 
@@ -39,6 +46,8 @@ public class MoveListener implements KeyListener {
 			return "blue_potion";
 		else if (map1[x][y] == 3)
 			return "gold";
+		else if (map1[x][y] == 'v')
+			return "vortex";
 
 		return "land";
 	}
@@ -113,10 +122,6 @@ public class MoveListener implements KeyListener {
 		if (nextlandform(x, y) == "gold") {
 			SideBar.gold_counter++;
 			SideBar.gold_count.setText("Gold count = " + SideBar.gold_counter + "/" + SideBar.total_gold);
-			/*
-			 * if (gold_counter == total_gold) { JOptionPane.showMessageDialog(frame,
-			 * "Room complete!"); }
-			 */
 		}
 		if (nextlandform(x, y) == "blue_potion") {
 			time_penalty += 10;
@@ -190,12 +195,17 @@ public class MoveListener implements KeyListener {
 				ToSwitch = false;
 			}
 		}
+		if(nextlandform(x, y)=="vortex") {
+			SideBar.isFinish=true;
+		}
 		map1[x][y] = 2;
 		
-		//Component[] comp = frame.getContentPane().getComponents();
-//		side_bar=new SideBar();
-//		side_bar.setGoldCount(gold_count);
 		mapHandling.drawMap(map1);
+		
+		//Leaderboard pop-up
+		if (SideBar.gold_counter == 1) {
+			//JOptionPane.showMessageDialog(frame, table);
+		}
 		
 		System.out.println(door);
 		mapHandling.drawMiniMap(door,side_bar);
