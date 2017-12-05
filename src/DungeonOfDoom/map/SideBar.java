@@ -47,7 +47,7 @@ public class SideBar extends JPanel implements ActionListener {
 	// public static JLabel leaderboard = new JLabel("", JLabel.CENTER);
 	JButton exit = new JButton("Exit");
 	Timer time = null;
-
+//test
 	private Object[][] data;
 	private String[] columnNames= {"Player","Score"};
 public SideBar(JFrame frame) {
