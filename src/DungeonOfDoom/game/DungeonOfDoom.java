@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
@@ -14,18 +16,19 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 	private JFrame frame;
 	int room_num = 0; // Main room is in the middle of a 3x3 array
 	private String title = "Dungeon of Doom";
-	private ArrayList<int[][]> mapList = new ArrayList<int[][]>();
+	private ArrayList<char[][]> mapList = new ArrayList<char[][]>();
 	public static int index = 0;
 	static Map map_init;
 	MapHandling mapHandling;
 
-	int[][] map1;
+	char[][] map1;
 
 	int rows;
 	int cols;
 	int x, y, bx, by;
 
 	private SideBar side_bar;
+
 
 	public void Init(int index) {
 		map_init = new Map(index);
@@ -47,7 +50,7 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 			Map map;
 			for(int i=0;i<5;i++) {
 				map=new Map(i);
-				int[][] maps=map.getMap();
+				char[][] maps=map.getMap();
 				mapList.add(maps);
 			}
 			
@@ -56,30 +59,27 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	
+		
 		frame = new JFrame(title); 
 		frame.getContentPane(); 
-		frame.setLayout(new
-		  BorderLayout());
-		  
-		  // Addition of side bar on left-hand side 
-		
+		frame.setLayout(new BorderLayout());
 		
 		mapHandling = new MapHandling(frame);
 		
 		mapHandling.getGold(mapList);
-		side_bar=new SideBar();
+		side_bar=new SideBar(frame);
 		frame.add(side_bar, BorderLayout.WEST);
-
-		frame.setSize(640, 900);
+		frame.setSize(640, 1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
+		//frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
 		mapHandling = new MapHandling(frame);
 		
 		Init(index);
-		frame.addKeyListener(new MoveListener(map1, x, y,mapHandling,side_bar));
+		MoveListener moveListener=new MoveListener(map1, x, y, mapHandling, side_bar, frame);
+		frame.addKeyListener(moveListener);
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);
 		frame.setFocusable(true);

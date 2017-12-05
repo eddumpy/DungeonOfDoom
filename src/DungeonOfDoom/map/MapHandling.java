@@ -1,4 +1,5 @@
 package DungeonOfDoom.map;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -21,7 +22,7 @@ public class MapHandling implements Functional{
 		
 	}
 
-	public void drawMap(int[][] map) {
+	public void drawMap(char[][] map) {
 		// TODO Auto-generated method stub
 		Component[] comp = jFrame.getContentPane().getComponents();
 		for (int i = 1; i < comp.length; i++) {
@@ -29,8 +30,10 @@ public class MapHandling implements Functional{
 				jFrame.remove(comp[i]);
 			}
 		}
-		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion");
-		
+		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","vortex");
+		if(SideBar.gold_counter==1) {
+			setVortex(map);
+		}
 		JPanel grid = new JPanel();
 		grid.setLayout(new GridLayout(20, 20));
 
@@ -68,21 +71,23 @@ public class MapHandling implements Functional{
 				case 9:
 					grid.add(new JLabel());
 					break;
+				case 'v':
+					grid.add(new JLabel(item.getVortex()));
 				}
 
 			}
 			System.out.println("");
 		}
 
-		jFrame.add(grid);
+		jFrame.add(grid, BorderLayout.CENTER);
 		jFrame.setVisible(true);
 		jFrame.pack();
 	}
 
 	@Override
-	public int getGold(ArrayList<int[][]> mapList) {
+	public int getGold(ArrayList<char[][]> mapList) {
 		// TODO Auto-generated method stub
-		for(int[][] map : mapList) {
+		for(char[][] map : mapList) {
 			for(int i=0;i<20;i++) {
 				for(int j=0;j<20;j++) {
 					if(map[i][j]==3) {
@@ -98,7 +103,7 @@ public class MapHandling implements Functional{
 		Item item=new Item("room", "current_room");
 		// TODO Auto-generated method stub
 		try {
-			side_bar.remove(8);
+			side_bar.remove(10);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("no mini map");
@@ -165,6 +170,8 @@ public class MapHandling implements Functional{
 
 		side_bar.add(mini_grid);
 	}
-
+	public void setVortex(char[][] map) {
+		map[18][1]='v';
+	}
 
 }
