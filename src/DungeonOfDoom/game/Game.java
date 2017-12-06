@@ -42,7 +42,7 @@ public class Game extends JFrame implements ActionListener {
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
 		
-		File Music = new File("music/music.wav");
+		File Music = new File("music/Mystical_Music.wav");
 		
 		frame.setLayout(new FlowLayout());
 		
