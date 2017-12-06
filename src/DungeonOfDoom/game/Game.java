@@ -44,6 +44,7 @@ public class Game extends JFrame implements ActionListener {
 		
 		File Music = new File("music/Mystical_Music.wav");
 		
+		
 		frame.setLayout(new FlowLayout());
 		
 		ImageIcon img = new ImageIcon("images1/DungeonBackground2.png");
