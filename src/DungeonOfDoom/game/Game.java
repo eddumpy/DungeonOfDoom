@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * Class for setting up a game
+ */
 public class Game extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
@@ -35,6 +38,9 @@ public class Game extends JFrame implements ActionListener {
 	public File music;
 	private ImageIcon img;
 	
+	/**
+	 * Constructor. Sets up window.
+	 */
 	public Game() {
 		// Initialisation
 		frame = new JFrame(title);
@@ -97,14 +103,26 @@ public class Game extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * Main method. Instantiates a game object.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Game game = new Game();
 	}
 	
+	/**
+	 * Accessor for the JFrame.
+	 * @return JFrame
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 	
+	/**
+	 * Method for playing sound
+	 * @param Sound (likely a music file in .wav format)
+	 */
 	public static void PlaySound(File Sound) {
         
 		try {
@@ -116,7 +134,10 @@ public class Game extends JFrame implements ActionListener {
         }
         
     }
-
+	
+	/**
+	 * Method for handling button click actions
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -138,7 +159,11 @@ public class Game extends JFrame implements ActionListener {
         }
 		   
 	}
-
+	
+	/**
+	 * Accessor. Gets the player's inputted name.
+	 * @return String containing player's name
+	 */
 	public static String getNameText() {
 		return nameText;
 	}
