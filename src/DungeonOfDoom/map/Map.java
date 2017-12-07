@@ -5,22 +5,32 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Class for instantiating and dealing with map arrays.
+ */
 public class Map {
 
 	public char[][] map = new char[20][20];
 	public int rows = map.length;
-	public int cols = map[0].length; // Since square map, just need length of
-										// one row to get number of columns.
+	public int cols = map[0].length; // Since square map, just need length of one row to get number of columns.
 	public int x_pos;
 	public int y_pos;	
 	public int bx_pos;
 	public int by_pos;
 	public ArrayList<char[][]> mapList=new ArrayList<>();
+	
+	/**
+	 * Default constructor
+	 */
 	public Map() {
 		
 	}
+	
+	/** 
+	 * Constructor. Sets map array and finds and stories player's position in the map.
+	 * @param newmap
+	 */
 	public Map(char[][] newmap) {
 		this.map=newmap;
 		for(int i=0;i<20;i++) {
@@ -33,22 +43,27 @@ public class Map {
 			}
 		}
 	}
+	
+	/**
+	 * Constructor. Reads map from file and stores map in 2D array.
+	 * @param num
+	 * 			Indicates which map to read (0-4)
+	 */
 	public Map(int num) {
 		
 		String filepath="mapc/map"+num+".txt";   
 		File file = new File(filepath);   
-		FileReader fr = null;//use FileReader流来读取一个文件中的数据   
-		BufferedReader br = null;//字符读到缓存里      
+		FileReader fr = null; 
+		BufferedReader br = null;    
 		try {    
 			fr = new FileReader(file);    
 			br = new BufferedReader(fr);    
 			for (int i = 0; i < 20; i++){      
-				String line = br.readLine();//以行为单位，一次读一行利用BufferedReader的readLine，读取分行文本   
-				//System.out.println(line);
+				String line = br.readLine();   
 				byte[] bytes=new byte[20];
-				bytes = line.getBytes();//将字符串转换为字节数组     
+				bytes = line.getBytes();     
 				for (int j = 0; j < bytes.length; j++) {
-					map[i][j] = (char) (bytes[j] - 48);// 根据ASCall码表要减掉30H（十进制的48）         
+					map[i][j] = (char) (bytes[j] - 48);         
 					if (map[i][j] == 2) {
 						x_pos = i;
 						y_pos = j;
@@ -58,17 +73,16 @@ public class Map {
 						by_pos = j;
 					}
 				}
-			}   
-			//mapList.add(map);
+			} 
 		}     
 		catch (FileNotFoundException e){    
-			e.printStackTrace();//深层次的输出异常调用的流程  
+			e.printStackTrace();  
 		}     
 		catch (IOException e){        
-			e.printStackTrace();//深层次的输出异常调用的流程   
+			e.printStackTrace();   
 		}    
 		catch(NullPointerException e){     
-			e.printStackTrace();//深层次的输出异常调用的流程  
+			e.printStackTrace();  
 		}    
 		finally {    
 			if (br == null){     
@@ -88,64 +102,35 @@ public class Map {
 				}      
 				fr = null;     
 			}    
-		}    
-		
-		/*int[][] map1 = {
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-				{ 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 },
-				{ 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1 },
-				{ 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 },
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
-
-		};
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				map[i][j] = map1[i][j];
-				if (map[i][j] == 2) {
-					x_pos = i;
-					y_pos = j;
-				}
-			}
-		}*/
-
+		}
 	}
 	
 	public ArrayList<char[][]> getMapList() {
 		return mapList;
 	}
+	
 	public ArrayList<char[][]> setMapList() {
 		for(int i=0;i<5;i++)
 			mapList.add(new Map(i).getMap());
 		return mapList;
 	}
+	
 	public int getRows() {
 		return rows;
 	}
+	
 	public void setRows(int rows) {
 		this.rows = rows;
 	}
+	
 	public int getCols() {
 		return cols;
 	}
+	
 	public void setCols(int cols) {
 		this.cols = cols;
 	}
+	
 	public int getGold(int[][] map) {
 		int total_gold = 0;
 		
@@ -158,6 +143,7 @@ public class Map {
 		}
 		return total_gold;
 	}
+	
 	public synchronized char[][] getMap() {
 		return map;
 	}
@@ -165,16 +151,21 @@ public class Map {
 	public void setMap(char[][] map) {
 		this.map = map;
 	}
+	
 	public int getX() {
 		return x_pos;
 	}
+	
 	public int getY() {
 		return y_pos;
 	}
+	
 	public void setX(int x) {
 		this.x_pos=x;
 	}
+	
 	public void setY(int y) {
 		this.y_pos=y;
 	}
+	
 }
