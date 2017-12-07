@@ -9,12 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
-// Why use Swing over AWT: https://stackoverflow.com/questions/408820/what-is-the-difference-between-swing-and-awt
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,43 +29,35 @@ public class Game extends JFrame implements ActionListener {
 	private JPanel panel2;
 	private JTextField name;
 	private String title = "Dungeon of Doom";
+	private JLabel background;
+	private JTextArea text;
 	public static String nameText;
+	public File music;
+	private ImageIcon img;
 	
 	public Game() {
-		
+		// Initialisation
 		frame = new JFrame(title);
 		start = new JButton("Start");
 		exit = new JButton("Exit");
 		panel = new JPanel();
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
-		
-		File Music = new File("music/Mystical_Music.wav");
-		
-		
-		frame.setLayout(new FlowLayout());
-		
-		ImageIcon img = new ImageIcon("images1/DungeonBackground2.png");
-		JLabel background = new JLabel(img);
-		background.setLayout(new BorderLayout());
-		frame.setLayout(new BorderLayout());
-		frame.add(background);
-		//panel.setPreferredSize(new Dimension(640, 480));
-		panel.setLayout(new FlowLayout());
-		panel.add(start);
-		panel.add(exit);
-		panel.setOpaque(false);
-		background.add(panel, BorderLayout.SOUTH);
-		start.addActionListener(this);
-		start.setActionCommand("Start");
-		exit.addActionListener(this); 
-		exit.setActionCommand("Exit");
-		
-		JTextArea text = new JTextArea(
+		music = new File("music/Mystical_Music.wav");
+		img = new ImageIcon("images1/DungeonBackground2.png");
+		background = new JLabel(img);
+		text = new JTextArea(
 				"You find yourself in a deep, dark and dingy dungeon. A goblin thief has "
 				+ "stolen all your gold, but has dropped in throughout the different rooms. "
 				+ "You must collect all gold in the dungeon to be able to escape. "
 				+ "Good luck and watch out for the monsters lurking in the dark...");
+		
+		// Setting layouts
+		background.setLayout(new BorderLayout());
+		frame.setLayout(new BorderLayout());
+		panel.setLayout(new FlowLayout());
+		
+		// Setting text formatting
 		text.setFont(new Font("Serif", Font.BOLD, 16));
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
@@ -76,30 +66,39 @@ public class Game extends JFrame implements ActionListener {
 		text.setAlignmentX(CENTER_ALIGNMENT);
 		text.setAlignmentY(CENTER_ALIGNMENT);
 		text.setOpaque(false);
+		
+		// Adding components to JFrame
+		frame.add(background);
+		background.add(panel, BorderLayout.SOUTH);
+		panel.add(start);
+		panel.add(exit);
+		panel.setOpaque(false);
+		background.add(panel2, BorderLayout.CENTER);
 		panel2.add(Box.createRigidArea(new Dimension(0,350)));
 		panel2.add(text, BorderLayout.CENTER);
-		panel2.setOpaque(false);
-		background.add(panel2, BorderLayout.CENTER);
-		
 		panel2.add(name, BorderLayout.SOUTH);
+		panel2.setOpaque(false);
 		
-		frame.pack(); // Packs content within frame
+		// Adding and setting action listeners
+		start.addActionListener(this);
+		start.setActionCommand("Start");
+		exit.addActionListener(this); 
+		exit.setActionCommand("Exit");
+		
+		// Set frame characteristics
+		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(640, 480);
-		
-		//frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		PlaySound(Music);
+		// Start music
+		PlaySound(music);
 		
 	}
 	
-	
-	
 	public static void main(String[] args) {
 		Game game = new Game();
-
 	}
 	
 	public JFrame getFrame() {
@@ -112,8 +111,9 @@ public class Game extends JFrame implements ActionListener {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Sound));
             clip.start();
-            
-        } catch(Exception e){}
+        } catch(Exception e) {
+        		e.printStackTrace();
+        }
         
     }
 
@@ -131,8 +131,8 @@ public class Game extends JFrame implements ActionListener {
 				frame.dispose();
 				new DungeonOfDoom();
 			}
-            
         }
+		
 		if(cmd.equals("Exit")) {
 			System.exit(0);
         }
@@ -142,7 +142,5 @@ public class Game extends JFrame implements ActionListener {
 	public static String getNameText() {
 		return nameText;
 	}
-
-
 
 }
