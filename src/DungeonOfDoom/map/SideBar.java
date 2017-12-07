@@ -31,7 +31,11 @@ import DungeonOfDoom.score.DBManager;
 import DungeonOfDoom.score.Score;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
+/** 
+ * Class that sets up the side bar/menu with all necessary information objects
+ */
 public class SideBar extends JPanel implements ActionListener {
+	
 	public static int gold_counter = 0;
 	public static int total_gold;
 	public static boolean isFinish = false;
@@ -44,14 +48,13 @@ public class SideBar extends JPanel implements ActionListener {
 	JLabel timer = new JLabel("Timer", JLabel.CENTER);
 	JLabel playerName = new JLabel("Player: " + Game.getNameText(), JLabel.CENTER);
 	public static JLabel gold_count = new JLabel("Gold Count", JLabel.CENTER);
-	// public static JLabel leaderboard = new JLabel("", JLabel.CENTER);
 	JButton exit = new JButton("Exit");
 	Timer time = null;
-//test
 	private Object[][] data;
 	private String[] columnNames= {"Player","Score"};
-public SideBar(JFrame frame) {
-		// TODO Auto-generated constructor stub
+	
+	public SideBar(JFrame frame) {
+
 		total_gold = getTotalGold();
 		this.setLayout(new FlowLayout());
 		this.setPreferredSize(new Dimension(200, getHeight()));
@@ -88,23 +91,20 @@ public SideBar(JFrame frame) {
 				
 				
 				if (SideBar.isFinish == true) {
-					DBManager dbManger=new DBManager("score.db");
-					String score=minutes+":"+seconds;
+					DBManager dbManger = new DBManager("score.db");
+					String score = minutes + ":" + seconds;
 					DBManager.insertData( Game.getNameText(), score);
-					String[] options= {"OK"};
-					JPanel panel=new JPanel();
+					String[] options = {"OK"};
+					JPanel panel = new JPanel();
 					String[][] content=DBManager.localData();
-					/*content[0][0]=Game.getNameText();				
-					content[0][1]=minutes+":"+seconds;*/
 					data=content;
-					JTable table=new JTable(data,columnNames);
-					DefaultTableCellHeaderRenderer renderer=new DefaultTableCellHeaderRenderer();
+					JTable table = new JTable(data,columnNames);
+					DefaultTableCellHeaderRenderer renderer= new DefaultTableCellHeaderRenderer();
 					renderer.setHorizontalAlignment(JLabel.CENTER);
 					renderer.setBackground(Color.white);
 					table.setDefaultRenderer(Object.class, renderer);
 					table.setEnabled(false);
-					JScrollPane jsPane=new JScrollPane();
-					//jsPane.add(table);
+					JScrollPane jsPane = new JScrollPane();
 					jsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 					jsPane.setViewportView(table);
 					
@@ -119,6 +119,7 @@ public SideBar(JFrame frame) {
 				}
 			}
 		};
+		
 		time = new Timer(100, actionListener);
 		time.start();
 
@@ -133,23 +134,8 @@ public SideBar(JFrame frame) {
 		this.add(Box.createRigidArea(new Dimension(100, 15)));
 		this.add(gold_count);
 		gold_count.setText("Gold count = " + gold_counter + "/" + total_gold);
-		// if (gold_counter == 1) {
-		// JOptionPane.showMessageDialog(frame, "Test.");
-		// }
 
 		this.add(Box.createRigidArea(new Dimension(100, 100)));
-		// this.add(leaderboard);
-		// leaderboard.setPreferredSize(new Dimension(100, 25));
-
-		/*
-		 * columnNames = new Vector<String>(); columnNames.add("Player");
-		 * columnNames.add("Score"); Vector line1=new Vector();
-		 * line1.add(Game.getNameText()); line1.add(gold_counter); data=new Vector<>();
-		 * data.add(line1);
-		 * 
-		 * table = new JTable(data, columnNames); jsp = new JScrollPane();
-		 * jsp.add(table); this.add(jsp); table.setEnabled(false); this.add(table);
-		 */
 		this.add(Box.createRigidArea(new Dimension(100, 100)));
 
 		// Addition of exit button
@@ -161,7 +147,6 @@ public SideBar(JFrame frame) {
 		this.add(exit);
 		exit.addActionListener(this);
 		exit.setActionCommand("Exit");
-		// creat leaderboard
 
 	}
 
@@ -185,12 +170,14 @@ public SideBar(JFrame frame) {
 		this.side_bar = sideBar;
 	}
 
+	/**
+	 * Method for handling exit button press.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Testing writing score to file
-		Score s = new Score();
-		s.writeScoreToFile(Game.getNameText(), gold_counter, mins, secs);
-		// s.readScoreFromFile();
-		// side_bar.add(new JScrollPane(s.getTable()));
+		
+		System.exit(0);
+		
 	}
+	
 }

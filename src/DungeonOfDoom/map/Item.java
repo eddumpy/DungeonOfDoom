@@ -1,7 +1,11 @@
 package DungeonOfDoom.map;
 import javax.swing.ImageIcon;
 
+/**
+ * Class for handling all icons and items in game
+ */
 public class Item {
+	
 	private ImageIcon wall;
 	private ImageIcon ground;
 	private ImageIcon player ;
@@ -9,16 +13,30 @@ public class Item {
 	private ImageIcon door1;
 	private ImageIcon door2;
 	private ImageIcon door3 ;
-	
-
 	private ImageIcon door4;
 	private ImageIcon blue_potion ;
 	private ImageIcon mini_room ;
 	private ImageIcon current_room ;
 	private ImageIcon vortex;
-
+	
+	/**
+	 * Constructor. Sets up ImageIcons for use when drawing maps.
+	 * 
+	 * Parameter names should be self-explanatory - they are all game icons or items
+	 * @param wall
+	 * @param ground
+	 * @param player
+	 * @param gold
+	 * @param door1
+	 * @param door2
+	 * @param door3
+	 * @param door4
+	 * @param blue_potion
+	 * @param vortex
+	 */
 	public Item(String wall, String ground, String player, String gold, String door1, String door2,
 			String door3, String door4, String blue_potion, String vortex) {
+		
 		super();
 		this.wall = new ImageIcon("images/"+wall+".png");
 		this.ground  = new ImageIcon("images/"+ground+".png");
@@ -30,17 +48,22 @@ public class Item {
 		this.door4  = new ImageIcon("images/"+door4+".png");
 		this.blue_potion= new ImageIcon("images1/"+blue_potion+".png");
 		this.vortex=new ImageIcon("images1/"+vortex+".png");
+		
 	}
+	
 	public ImageIcon getVortex() {
 		return vortex;
 	}
+	
 	public void setVortex(ImageIcon vortex) {
 		this.vortex = vortex;
 	}
+	
 	public Item(String mini_room,String current_room) {
 		this.mini_room = new ImageIcon("images1/"+mini_room+".png");
 		this.current_room = new ImageIcon("images1/"+current_room+".png");
 	}
+	
 	public ImageIcon getWall() {
 		return wall;
 	}

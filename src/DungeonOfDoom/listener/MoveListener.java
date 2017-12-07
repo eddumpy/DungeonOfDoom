@@ -11,6 +11,9 @@ import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
 import DungeonOfDoom.score.Score;
 
+/**
+ * Class for handling arrow key presses for movement
+ */
 public class MoveListener implements KeyListener {
 	private char[][] map1;
 	private int x,y;
@@ -25,8 +28,23 @@ public class MoveListener implements KeyListener {
 	private SideBar side_bar;
 	private JFrame frame;
 	
-	public MoveListener(char[][] map,int x, int y,MapHandling mapHandling,SideBar sideBar, JFrame frame) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructor
+	 * @param map
+	 * 			20x20 2D array
+	 * @param x
+	 * 			x position of player
+	 * @param y
+	 * 			y position of player
+	 * @param mapHandling
+	 * 			Object for handling map drawing
+	 * @param sideBar
+	 * 			Menu object for showing information at side of game
+	 * @param frame
+	 * 			JFrame that contains viewable elements of game
+	 */
+	public MoveListener(char[][] map, int x, int y, MapHandling mapHandling, SideBar sideBar, JFrame frame) {
+
 		this.map1=map;
 		this.x=x;
 		this.y=y;
@@ -37,7 +55,17 @@ public class MoveListener implements KeyListener {
 			mapList.add(null);
 
 	}
+	
+	/**
+	 * Method for checking the next tile in the player's path. Used for collision detection.
+	 * @param x
+	 * 			x position of player
+	 * @param y
+	 * 			y position of player
+	 * @return String of what the next tile/land-form is
+	 */
 	public String nextlandform(int x, int y) {
+		
 		if (map1[x][y] == 1)
 			return "wall";
 		else if (map1[x][y] == 4 || map1[x][y] == 5 || map1[x][y] == 6 || map1[x][y] == 7)
@@ -48,102 +76,80 @@ public class MoveListener implements KeyListener {
 			return "gold";
 		else if (map1[x][y] == 'v')
 			return "vortex";
-
 		return "land";
+		
 	}
+	
+	/**
+	 * Auto-generated method stub from KeyListener interface.
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
+	/**
+	 * Method for handling key press actions.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		map1[x][y] = 0;
 		int tempx, tempy;
-
 		tempx = x;
 		tempy = y;
+		
 		switch (e.getKeyCode()) {
-
-		case (KeyEvent.VK_UP): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// map1[x][y] = 0;
-			x -= 1;
-			// map1[x][y] = 2;
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
-			break;
+			case (KeyEvent.VK_UP): {
+				x -= 1;
+				break;
+			}
+			case (KeyEvent.VK_DOWN): {
+				x += 1;
+				break;
+	
+			}
+			case (KeyEvent.VK_LEFT): {
+				y -= 1;
+				break;
+			}
+			case (KeyEvent.VK_RIGHT): {
+				y += 1;
+				break;
+			}
 		}
-		case (KeyEvent.VK_DOWN): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-
-			// if (x + 1 == 19) {
-			// Do nothing
-			// } else {
-			// map1[x][y] = 0;
-			x += 1;
-			// map1[x][y] = 2;
-			// }
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
-			break;
-
-		}
-		case (KeyEvent.VK_LEFT): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// map1[x][y] = 0;
-			y -= 1;
-			// map1[x][y] = 2;
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
-			break;
-		}
-		case (KeyEvent.VK_RIGHT): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// map1[x][y] = 0;
-			y += 1;
-			// map1[x][y] = 2;
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
-			break;
-		}
-		}
+		
+		// If next landform is a wall, set player's position back to what it was previously.
 		if (nextlandform(x, y) == "wall") {
 			x = tempx;
 			y = tempy;
 
 		}
+		// If next landform is gold, increment gold counter
 		if (nextlandform(x, y) == "gold") {
 			SideBar.gold_counter++;
 			SideBar.gold_count.setText("Gold count = " + SideBar.gold_counter + "/" + SideBar.total_gold);
 		}
+		// If next landform is potion, incur time penalty
 		if (nextlandform(x, y) == "blue_potion") {
 			time_penalty += 10;
 		}
+		// If next landform is a door, check which door and handle maps.
 		if (nextlandform(x, y) == "door") {
-			//System.out.println(mapList.size());
 
 			switch (map1[x][y]) {
-			case 4:
-				door = 1;
-				break;
-			case 5:
-				door = 2;
-				break;
-			case 6:
-				door = 3;
-				break;
-			case 7:
-				door = 4;
-				break;
+				case 4:
+					door = 1;
+					break;
+				case 5:
+					door = 2;
+					break;
+				case 6:
+					door = 3;
+					break;
+				case 7:
+					door = 4;
+					break;
 			}
-			// doorindex.add(door);
 
 			x = tempx;
 			y = tempy;
@@ -165,11 +171,7 @@ public class MoveListener implements KeyListener {
 				ToSave = false;
 
 			}
-			/*
-			 * if (doorindex.getFirst() != door) {
-			 * 
-			 * ToSwitch = true; doorindex.removeFirst(); }
-			 */
+			
 			if (ToSwitch == true) {
 				System.out.println(door);
 
@@ -195,34 +197,38 @@ public class MoveListener implements KeyListener {
 				ToSwitch = false;
 			}
 		}
-		if(nextlandform(x, y)=="vortex") {
+		// If next landform is a vortex, finish game.
+		if(nextlandform(x, y) == "vortex") {
 			SideBar.isFinish=true;
 		}
+		
 		map1[x][y] = 2;
 		
 		mapHandling.drawMap(map1);
 		
-		//Leaderboard pop-up
-		if (SideBar.gold_counter == 1) {
-			//JOptionPane.showMessageDialog(frame, table);
-		}
-		
 		System.out.println(door);
 		mapHandling.drawMiniMap(door,side_bar);
 	}
-
+	
+	/**
+	 * Auto-generated method stub from KeyListener interface.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		/*System.out.println("you pressed a key");
-		counter++; // Step counter
-		System.out.println("The step counter = " + counter);
-		System.out.println("The switch statement is next");*/
-		
 	}
+	
+	/**
+	 * Accessor. Gets count for...
+	 * @return
+	 */
 	public int getCount() {
 		return count;
 	}
+	
+	/**
+	 * Mutator. Sets count of ... to given value
+	 * @param count
+	 */
 	public void setCount(int count) {
 		this.count = count;
 	}

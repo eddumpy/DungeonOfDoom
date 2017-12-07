@@ -3,33 +3,36 @@ import java.awt.BorderLayout;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
 
-public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListener*/ {
+/**
+ * Class for setting up the Dungeon of Doom game
+ */
+public class DungeonOfDoom extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	int room_num = 0; // Main room is in the middle of a 3x3 array
+	private SideBar side_bar;
+	int room_num = 0;
 	private String title = "Dungeon of Doom";
 	private ArrayList<char[][]> mapList = new ArrayList<char[][]>();
 	public static int index = 0;
 	static Map map_init;
 	MapHandling mapHandling;
-
+	MoveListener moveListener;
 	char[][] map1;
-
 	int rows;
 	int cols;
 	int x, y, bx, by;
 
-	private SideBar side_bar;
-
-
+	/**
+	 * Method to initialise the maps
+	 * @param index
+	 * 				Reference number of map (value between 0-4)
+	 */
 	public void Init(int index) {
 		map_init = new Map(index);
 		map1 = map_init.getMap();
@@ -39,13 +42,13 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 		y = map_init.y_pos;
 		bx = map_init.bx_pos;
 		by = map_init.by_pos;
-		/*Bot bot = new Bot(bx, by);
-		bot.moveBot();*/
 	}
-
+	
+	/**
+	 * Constructor
+	 */
 	public DungeonOfDoom() {
-		// Creation of JFrame and setting layout
-//		Map map;
+
 		try {
 			Map map;
 			for(int i=0;i<5;i++) {
@@ -53,37 +56,33 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 				char[][] maps=map.getMap();
 				mapList.add(maps);
 			}
-			
-			//mapList=map.getMapList();
 		} catch (NullPointerException e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
 		frame = new JFrame(title); 
-		frame.getContentPane(); 
-		frame.setLayout(new BorderLayout());
+		side_bar=new SideBar(frame);
 		
 		mapHandling = new MapHandling(frame);
-		
 		mapHandling.getGold(mapList);
-		side_bar=new SideBar(frame);
+		
+		frame.getContentPane(); 
+		frame.setLayout(new BorderLayout());
 		frame.add(side_bar, BorderLayout.WEST);
 		frame.setSize(640, 1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		//frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.pack();
-		mapHandling = new MapHandling(frame);
 		
+		mapHandling = new MapHandling(frame);
 		Init(index);
-		MoveListener moveListener=new MoveListener(map1, x, y, mapHandling, side_bar, frame);
+		moveListener=new MoveListener(map1, x, y, mapHandling, side_bar, frame);
+		
 		frame.addKeyListener(moveListener);
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);
 		frame.setFocusable(true);
-		//frame.addKeyListener(this);
 	}
 		
 }
