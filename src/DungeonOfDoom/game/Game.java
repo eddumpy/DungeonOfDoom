@@ -44,7 +44,7 @@ public class Game extends JFrame implements ActionListener {
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
 		music = new File("music/Mystical_Music.wav");
-		img = new ImageIcon("images1/DungeonBackground2.png");
+		img = new ImageIcon("images/old_paper_background.png");
 		background = new JLabel(img);
 		text = new JTextArea(
 				"You find yourself in a deep, dark and dingy dungeon. A goblin thief has "
@@ -62,7 +62,7 @@ public class Game extends JFrame implements ActionListener {
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
 		text.setColumns(40);
-		text.setForeground(Color.WHITE);
+		text.setForeground(Color.BLACK);
 		text.setAlignmentX(CENTER_ALIGNMENT);
 		text.setAlignmentY(CENTER_ALIGNMENT);
 		text.setOpaque(false);
