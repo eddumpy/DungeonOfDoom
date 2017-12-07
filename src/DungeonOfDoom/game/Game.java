@@ -47,7 +47,7 @@ public class Game extends JFrame implements ActionListener {
 		
 		frame.setLayout(new FlowLayout());
 		
-		ImageIcon img = new ImageIcon("images1/DungeonBackground2.png");
+		ImageIcon img = new ImageIcon("images/DungeonBackground2.png");
 		JLabel background = new JLabel(img);
 		background.setLayout(new BorderLayout());
 		frame.setLayout(new BorderLayout());

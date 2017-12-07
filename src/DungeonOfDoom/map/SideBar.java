@@ -1,5 +1,6 @@
 package DungeonOfDoom.map;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -25,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 
+import DungeonOfDoom.game.DungeonOfDoom;
 import DungeonOfDoom.game.Game;
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.score.DBManager;
@@ -50,9 +52,9 @@ public class SideBar extends JPanel implements ActionListener {
 //test
 	private Object[][] data;
 	private String[] columnNames= {"Player","Score"};
-public SideBar(JFrame frame) {
+public SideBar(JFrame frame,int tg) {
 		// TODO Auto-generated constructor stub
-		total_gold = getTotalGold();
+		total_gold = tg;
 		this.setLayout(new FlowLayout());
 		this.setPreferredSize(new Dimension(200, getHeight()));
 		this.setOpaque(true);
@@ -91,7 +93,7 @@ public SideBar(JFrame frame) {
 					DBManager dbManger=new DBManager("score.db");
 					String score=minutes+":"+seconds;
 					DBManager.insertData( Game.getNameText(), score);
-					String[] options= {"OK"};
+					String[] options= {"Restart","Exit"};
 					JPanel panel=new JPanel();
 					String[][] content=DBManager.localData();
 					/*content[0][0]=Game.getNameText();				
@@ -107,12 +109,21 @@ public SideBar(JFrame frame) {
 					//jsPane.add(table);
 					jsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 					jsPane.setViewportView(table);
-					
+					JLabel finishLabel=new JLabel("Game finished!",JLabel.CENTER);
+					finishLabel.setLayout(new BorderLayout());
+					panel.setLayout(new BorderLayout());
+					panel.add(finishLabel,BorderLayout.NORTH);
 					panel.add(jsPane);
 					
-					int response=JOptionPane.showOptionDialog(frame, panel, "Score", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+					int response=JOptionPane.showOptionDialog(frame, panel, "Score", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 					if(response==0) {
-						System.exit(0);
+						gold_counter=0;
+						isFinish=false;
+						new DungeonOfDoom();
+						
+					}
+					if(response==1) {
+						System.exit(0);//exit game
 					}
 					time.stop();
 
@@ -166,7 +177,7 @@ public SideBar(JFrame frame) {
 	}
 
 	public int getTotalGold() {
-		return MapHandling.total_gold;
+		return total_gold;
 	}
 
 	public void setGoldCount(JLabel gold_count) {

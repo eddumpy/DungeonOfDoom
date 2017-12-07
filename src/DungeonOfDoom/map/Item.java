@@ -23,13 +23,13 @@ public class Item {
 		this.wall = new ImageIcon("images/"+wall+".png");
 		this.ground  = new ImageIcon("images/"+ground+".png");
 		this.player= new ImageIcon("images/"+player+".png");
-		this.gold = new ImageIcon("images1/"+gold+".png");
+		this.gold = new ImageIcon("images/"+gold+".png");
 		this.door1 = new ImageIcon("images/"+door1+".png");
 		this.door2  = new ImageIcon("images/"+door2+".png");
 		this.door3= new ImageIcon("images/"+door3+".png");
 		this.door4  = new ImageIcon("images/"+door4+".png");
-		this.blue_potion= new ImageIcon("images1/"+blue_potion+".png");
-		this.vortex=new ImageIcon("images1/"+vortex+".png");
+		this.blue_potion= new ImageIcon("images/"+blue_potion+".png");
+		this.vortex=new ImageIcon("images/"+vortex+".png");
 	}
 	public ImageIcon getVortex() {
 		return vortex;
@@ -38,8 +38,8 @@ public class Item {
 		this.vortex = vortex;
 	}
 	public Item(String mini_room,String current_room) {
-		this.mini_room = new ImageIcon("images1/"+mini_room+".png");
-		this.current_room = new ImageIcon("images1/"+current_room+".png");
+		this.mini_room = new ImageIcon("images/"+mini_room+".png");
+		this.current_room = new ImageIcon("images/"+current_room+".png");
 	}
 	public ImageIcon getWall() {
 		return wall;

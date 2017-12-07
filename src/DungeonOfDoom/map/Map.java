@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Map {
 
@@ -18,42 +17,42 @@ public class Map {
 	public int bx_pos;
 	public int by_pos;
 	public ArrayList<char[][]> mapList=new ArrayList<>();
-	public Map() {
-		
-	}
 	public Map(char[][] newmap) {
 		this.map=newmap;
 		for(int i=0;i<20;i++) {
 			for(int j=0;j<20;j++) {
-				if(map[i][j]==2) {
+				if(map[i][j]=='2') {
 					x_pos = i;
 					y_pos = j;
 				}
-				
+				if (map[i][j] == 'b') {
+					bx_pos = i;
+					by_pos = j;
+				}
 			}
 		}
 	}
+
 	public Map(int num) {
 		
 		String filepath="mapc/map"+num+".txt";   
 		File file = new File(filepath);   
-		FileReader fr = null;//use FileReader流来读取一个文件中的数据   
-		BufferedReader br = null;//字符读到缓存里      
+		FileReader fr = null;//use FileReader to read data from a file
+		BufferedReader br = null;//read chars into buffer   
 		try {    
 			fr = new FileReader(file);    
 			br = new BufferedReader(fr);    
 			for (int i = 0; i < 20; i++){      
-				String line = br.readLine();//以行为单位，一次读一行利用BufferedReader的readLine，读取分行文本   
-				//System.out.println(line);
-				byte[] bytes=new byte[20];
-				bytes = line.getBytes();//将字符串转换为字节数组     
-				for (int j = 0; j < bytes.length; j++) {
-					map[i][j] = (char) (bytes[j] - 48);// 根据ASCall码表要减掉30H（十进制的48）         
-					if (map[i][j] == 2) {
+				String line = br.readLine();//read lines based on lines
+				//System.out.println(line);  
+				for (int j = 0; j <20; j++) {
+					
+					map[i][j] =  line.charAt(j);// cut each character    
+					if (map[i][j] == '2') {
 						x_pos = i;
 						y_pos = j;
 					}
-					if (map[i][j] == 9) {
+					if (map[i][j] == 'b') {
 						bx_pos = i;
 						by_pos = j;
 					}
@@ -62,13 +61,13 @@ public class Map {
 			//mapList.add(map);
 		}     
 		catch (FileNotFoundException e){    
-			e.printStackTrace();//深层次的输出异常调用的流程  
+			e.printStackTrace();
 		}     
 		catch (IOException e){        
-			e.printStackTrace();//深层次的输出异常调用的流程   
+			e.printStackTrace();
 		}    
 		catch(NullPointerException e){     
-			e.printStackTrace();//深层次的输出异常调用的流程  
+			e.printStackTrace();
 		}    
 		finally {    
 			if (br == null){     
@@ -89,40 +88,7 @@ public class Map {
 				fr = null;     
 			}    
 		}    
-		
-		/*int[][] map1 = {
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-				{ 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 },
-				{ 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-				{ 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1 },
-				{ 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 },
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 
-		};
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				map[i][j] = map1[i][j];
-				if (map[i][j] == 2) {
-					x_pos = i;
-					y_pos = j;
-				}
-			}
-		}*/
 
 	}
 	
@@ -158,7 +124,7 @@ public class Map {
 		}
 		return total_gold;
 	}
-	public synchronized char[][] getMap() {
+	public char[][] getMap() {
 		return map;
 	}
 
@@ -176,5 +142,11 @@ public class Map {
 	}
 	public void setY(int y) {
 		this.y_pos=y;
+	}
+	public int getBx_pos() {
+		return bx_pos;
+	}
+	public int getBy_pos() {
+		return by_pos;
 	}
 }

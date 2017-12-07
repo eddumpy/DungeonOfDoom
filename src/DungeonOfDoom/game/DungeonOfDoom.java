@@ -65,9 +65,10 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 		frame.setLayout(new BorderLayout());
 		
 		mapHandling = new MapHandling(frame);
-		
-		mapHandling.getGold(mapList);
-		side_bar=new SideBar(frame);
+		System.out.println(mapList.size());
+		int tg=mapHandling.getGold(mapList);
+		System.out.println(tg);
+		side_bar=new SideBar(frame,tg);
 		frame.add(side_bar, BorderLayout.WEST);
 		frame.setSize(640, 1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +79,7 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 		mapHandling = new MapHandling(frame);
 		
 		Init(index);
-		MoveListener moveListener=new MoveListener(map1, x, y, mapHandling, side_bar, frame);
+		MoveListener moveListener=new MoveListener(map1, x, y,bx,by, mapHandling, side_bar, frame);
 		frame.addKeyListener(moveListener);
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);
