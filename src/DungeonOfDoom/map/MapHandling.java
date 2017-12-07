@@ -31,7 +31,7 @@ public class MapHandling implements Functional{
 			}
 		}
 		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","vortex");
-		if(SideBar.gold_counter==1) {
+		if(SideBar.gold_counter==SideBar.total_gold) {
 			setVortex(map);
 		}
 		JPanel grid = new JPanel();

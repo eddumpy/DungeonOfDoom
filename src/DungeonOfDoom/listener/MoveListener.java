@@ -11,9 +11,9 @@ import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
 
-public class MoveListener implements KeyListener {
+public class MoveListener implements KeyListener, Runnable {
 	private char[][] map1;
-	private int x, y, bx, by;
+	private int x, y, bx, by, thread;
 	private int door;
 	private boolean ToSave;
 	private boolean ToSwitch;
@@ -26,13 +26,14 @@ public class MoveListener implements KeyListener {
 	private JFrame frame;
 
 	public MoveListener(char[][] map, int x, int y, int bx, int by, MapHandling mapHandling, SideBar sideBar,
-			JFrame frame) {
+			JFrame frame, int thread) {
 		// TODO Auto-generated constructor stub
 		this.map1 = map;
 		this.x = x;
 		this.y = y;
 		this.bx = bx;
 		this.by = by;
+		this.thread = thread;
 		this.mapHandling = mapHandling;
 		this.side_bar = sideBar;
 		this.frame = frame;
@@ -52,14 +53,22 @@ public class MoveListener implements KeyListener {
 			return "blue_potion";
 		else if (map1[x][y] == '3')
 			return "gold";
+		else if (map1[x][y] == 'b')
+			return "bot";
 		else if (map1[x][y] == 'v')
 			return "vortex";
 
 		return "land";
 	}
-	public void tryToMove(int temptbx,int temptby) {
-		SecureRandom random = new SecureRandom();
-		int rand = random.nextInt(3);
+
+	public void tryToMove() {
+		map1[bx][by] = '0';
+		int temptbx, temptby;
+		temptbx = bx;
+		temptby = by;
+		Random random = new Random();
+		int rand = random.nextInt(4);
+		System.out.println("Rand" + rand);
 		if (ToSave == false) {
 			switch (rand) {
 			case 0:
@@ -76,14 +85,19 @@ public class MoveListener implements KeyListener {
 				break;
 			}
 		}
-		if (nextlandform(bx, by) == "wall" || nextlandform(bx, by) == "gold" || nextlandform(bx, by) == "door"
-				|| nextlandform(bx, by) == "blue_potion"||nextlandform(bx, by) == "red_potion"||nextlandform(bx, by) == "vortex") {
+		if(nextlandform(bx, by)=="player") {
+			time_penalty+=10;
+		}
+		if (nextlandform(bx, by) != "land") {
 			bx = temptbx;
 			by = temptby;
-			tryToMove(temptbx, temptby);
+			// tryToMove();
 		}
 		
+		map1[bx][by] = 'b';
+		mapHandling.drawMap(map1);
 	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -94,16 +108,14 @@ public class MoveListener implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		map1[x][y] = '0';
-		map1[bx][by] = '0';
-		int tempx, tempy, temptbx, temptby;
-		
+
+		int tempx, tempy;
+
 		tempx = x;
 		tempy = y;
-		temptbx = bx;
-		temptby = by;
-		
-		tryToMove(temptbx, temptby);
-		map1[bx][by] = 'b';
+
+		// tryToMove();
+
 		switch (e.getKeyCode()) {
 
 		case (KeyEvent.VK_UP): {
@@ -162,6 +174,11 @@ public class MoveListener implements KeyListener {
 			SideBar.gold_count.setText("Gold count = " + SideBar.gold_counter + "/" + SideBar.total_gold);
 		}
 		if (nextlandform(x, y) == "blue_potion") {
+			time_penalty += 10;
+		}
+		if( nextlandform(x, y) == "bot") {
+			x = tempx;
+			y = tempy;
 			time_penalty += 10;
 		}
 		if (nextlandform(x, y) == "door") {
@@ -228,8 +245,8 @@ public class MoveListener implements KeyListener {
 				}
 				x = newMap.getX();
 				y = newMap.getY();
-				bx=newMap.getBx_pos();
-				by=newMap.getBy_pos();
+				bx = newMap.getBx_pos();
+				by = newMap.getBy_pos();
 				map1 = newMap.getMap();
 				ToSwitch = false;
 			}
@@ -267,5 +284,21 @@ public class MoveListener implements KeyListener {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		if (thread == 1) {
+			while (true) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				tryToMove();
+			}
+		}
 	}
 }

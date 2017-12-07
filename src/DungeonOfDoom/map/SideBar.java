@@ -79,17 +79,17 @@ public SideBar(JFrame frame,int tg) {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Long countTime = (System.currentTimeMillis() - startTime) / 1000;
-				int secs = (int) ((countTime % 60) + MoveListener.time_penalty);
+				int secs = (int) ((countTime + MoveListener.time_penalty)% 60 );
 				if (secs < 0) {
 					secs = 0;
 				}
-				int mins = (int) (System.currentTimeMillis() - startTime) / 60000;
+				int mins = (int) (System.currentTimeMillis() - startTime+MoveListener.time_penalty*1000) / 60000;
 				String minutes=String.format("%02d", mins);
 				String seconds=String.format("%02d", secs);
 				timer.setText("Time: " +minutes  + ":" + seconds);
 				
 				
-				if (SideBar.isFinish == true) {
+				if (isFinish == true) {
 					DBManager dbManger=new DBManager("score.db");
 					String score=minutes+":"+seconds;
 					DBManager.insertData( Game.getNameText(), score);

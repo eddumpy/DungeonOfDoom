@@ -79,8 +79,14 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 		mapHandling = new MapHandling(frame);
 		
 		Init(index);
-		MoveListener moveListener=new MoveListener(map1, x, y,bx,by, mapHandling, side_bar, frame);
-		frame.addKeyListener(moveListener);
+		MoveListener moveListener1=new MoveListener(map1, x, y, bx, by,mapHandling, side_bar, frame,1);		
+		MoveListener moveListener2=new MoveListener(map1, x, y, bx, by, mapHandling, side_bar, frame,2);
+		
+		frame.addKeyListener(moveListener1);
+		Thread t1=new Thread(moveListener1);
+		Thread t2=new Thread(moveListener2);
+		t1.start();
+		t2.start();
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);
 		frame.setFocusable(true);
