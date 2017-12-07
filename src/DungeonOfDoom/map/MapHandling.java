@@ -30,7 +30,7 @@ public class MapHandling implements Functional{
 				jFrame.remove(comp[i]);
 			}
 		}
-		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","vortex");
+		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","vortex","bot");
 		if(SideBar.gold_counter==SideBar.total_gold) {
 			setVortex(map);
 		}
@@ -75,7 +75,7 @@ public class MapHandling implements Functional{
 					grid.add(new JLabel(item.getVortex()));
 					break;
 				case 'b':
-					grid.add(new JLabel());
+					grid.add(new JLabel(item.getBot()));
 					break;
 				}
 
