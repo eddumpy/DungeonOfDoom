@@ -96,8 +96,7 @@ public SideBar(JFrame frame,int tg) {
 					String[] options= {"Restart","Exit"};
 					JPanel panel=new JPanel();
 					String[][] content=DBManager.localData();
-					/*content[0][0]=Game.getNameText();				
-					content[0][1]=minutes+":"+seconds;*/
+
 					data=content;
 					JTable table=new JTable(data,columnNames);
 					DefaultTableCellHeaderRenderer renderer=new DefaultTableCellHeaderRenderer();
@@ -119,7 +118,10 @@ public SideBar(JFrame frame,int tg) {
 					if(response==0) {
 						gold_counter=0;
 						isFinish=false;
-						new DungeonOfDoom();
+						frame.dispose();
+						Game.Dod.t1.stop();
+						Game.Dod.t2.stop();
+						Game.Dod=new DungeonOfDoom();
 						
 					}
 					if(response==1) {
@@ -144,23 +146,9 @@ public SideBar(JFrame frame,int tg) {
 		this.add(Box.createRigidArea(new Dimension(100, 15)));
 		this.add(gold_count);
 		gold_count.setText("Gold count = " + gold_counter + "/" + total_gold);
-		// if (gold_counter == 1) {
-		// JOptionPane.showMessageDialog(frame, "Test.");
-		// }
 
 		this.add(Box.createRigidArea(new Dimension(100, 100)));
-		// this.add(leaderboard);
-		// leaderboard.setPreferredSize(new Dimension(100, 25));
 
-		/*
-		 * columnNames = new Vector<String>(); columnNames.add("Player");
-		 * columnNames.add("Score"); Vector line1=new Vector();
-		 * line1.add(Game.getNameText()); line1.add(gold_counter); data=new Vector<>();
-		 * data.add(line1);
-		 * 
-		 * table = new JTable(data, columnNames); jsp = new JScrollPane();
-		 * jsp.add(table); this.add(jsp); table.setEnabled(false); this.add(table);
-		 */
 		this.add(Box.createRigidArea(new Dimension(100, 100)));
 
 		// Addition of exit button
