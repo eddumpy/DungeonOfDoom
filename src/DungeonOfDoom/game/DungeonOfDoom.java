@@ -28,6 +28,8 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 	int x, y, bx, by;
 
 	private SideBar side_bar;
+	public Thread t1;
+	public Thread t2;
 
 
 	public void Init(int index) {
@@ -83,8 +85,8 @@ public class DungeonOfDoom extends JFrame /*implements KeyListener, ActionListen
 		MoveListener moveListener2=new MoveListener(map1, x, y, bx, by, mapHandling, side_bar, frame,2);
 		
 		frame.addKeyListener(moveListener1);
-		Thread t1=new Thread(moveListener1);
-		Thread t2=new Thread(moveListener2);
+		t1=new Thread(moveListener1);
+		t2=new Thread(moveListener2);
 		t1.start();
 		t2.start();
 		mapHandling.drawMap(map1);

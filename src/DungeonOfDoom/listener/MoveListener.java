@@ -2,11 +2,18 @@ package DungeonOfDoom.listener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.nio.file.Files;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
+
+import java.io.File;
+import com.sun.org.apache.bcel.internal.classfile.Field;
+
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
@@ -24,7 +31,7 @@ public class MoveListener implements KeyListener, Runnable {
 	private Map newMap;
 	private SideBar side_bar;
 	private JFrame frame;
-
+	File collision=new File("music/collision.wav");
 	public MoveListener(char[][] map, int x, int y, int bx, int by, MapHandling mapHandling, SideBar sideBar,
 			JFrame frame, int thread) {
 		// TODO Auto-generated constructor stub
@@ -87,13 +94,20 @@ public class MoveListener implements KeyListener, Runnable {
 		}
 		if(nextlandform(bx, by)=="player") {
 			time_penalty+=10;
+			try {
+				Clip clip=AudioSystem.getClip();
+				clip.open(AudioSystem.getAudioInputStream(collision));
+				clip.start();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				System.out.println("not played");
+			}
 		}
 		if (nextlandform(bx, by) != "land") {
 			bx = temptbx;
 			by = temptby;
 			// tryToMove();
-		}
-		
+		}		
 		map1[bx][by] = 'b';
 		mapHandling.drawMap(map1);
 	}
@@ -114,8 +128,6 @@ public class MoveListener implements KeyListener, Runnable {
 		tempx = x;
 		tempy = y;
 
-		// tryToMove();
-
 		switch (e.getKeyCode()) {
 
 		case (KeyEvent.VK_UP): {
@@ -125,43 +137,36 @@ public class MoveListener implements KeyListener, Runnable {
 			x -= 1;
 			// map1[x][y] = 2;
 			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
+
 			break;
 		}
 		case (KeyEvent.VK_DOWN): {
 
 			System.out.printf("x = %d, y = %d\n", x, y);
 
-			// if (x + 1 == 19) {
-			// Do nothing
-			// } else {
-			// map1[x][y] = 0;
 			x += 1;
-			// map1[x][y] = 2;
-			// }
+
 			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
+
 			break;
 
 		}
 		case (KeyEvent.VK_LEFT): {
 
 			System.out.printf("x = %d, y = %d\n", x, y);
-			// map1[x][y] = 0;
+
 			y -= 1;
-			// map1[x][y] = 2;
+
 			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
 			break;
 		}
 		case (KeyEvent.VK_RIGHT): {
 
 			System.out.printf("x = %d, y = %d\n", x, y);
-			// map1[x][y] = 0;
+
 			y += 1;
-			// map1[x][y] = 2;
+
 			System.out.printf("x = %d, y = %d\n", x, y);
-			// drawMap(map1);
 			break;
 		}
 		}
@@ -180,6 +185,14 @@ public class MoveListener implements KeyListener, Runnable {
 			x = tempx;
 			y = tempy;
 			time_penalty += 10;
+			try {
+				Clip clip=AudioSystem.getClip();
+				clip.open(AudioSystem.getAudioInputStream(collision));
+				clip.start();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				System.out.println("not played");
+			}
 		}
 		if (nextlandform(x, y) == "door") {
 			// System.out.println(mapList.size());

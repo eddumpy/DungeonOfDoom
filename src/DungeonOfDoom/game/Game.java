@@ -32,7 +32,7 @@ public class Game extends JFrame implements ActionListener {
 	private JTextField name;
 	private String title = "Dungeon of Doom";
 	public static String nameText;
-	
+	public static DungeonOfDoom Dod;
 	public Game() {
 		
 		frame = new JFrame(title);
@@ -107,14 +107,20 @@ public class Game extends JFrame implements ActionListener {
 	}
 	
 	public static void PlaySound(File Sound) {
-        
+        while(true) {
 		try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Sound));
             clip.start();
             
         } catch(Exception e){}
-        
+		try {
+			Thread.sleep(103000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        }
     }
 
 	@Override
@@ -129,7 +135,7 @@ public class Game extends JFrame implements ActionListener {
 			else {
 				nameText = name.getText();
 				frame.dispose();
-				new DungeonOfDoom();
+				Dod=new DungeonOfDoom();
 			}
             
         }
