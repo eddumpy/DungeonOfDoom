@@ -37,6 +37,7 @@ public class SideBar extends JPanel implements ActionListener {
 	public static int gold_counter = 0;
 	public static int total_gold;
 	public static boolean isFinish = false;
+	public static Long countTime;
 	File file;
 	JPanel side_bar;
 	int time_penalty = 0;
@@ -44,7 +45,7 @@ public class SideBar extends JPanel implements ActionListener {
 	int mins;
 	String addr="score.db";
 	JLabel timer = new JLabel("Timer", JLabel.CENTER);
-	JLabel playerName = new JLabel("Player: " + Game.getNameText(), JLabel.CENTER);
+	public static JLabel playerName = new JLabel("<html>Player: <br>" + Game.getNameText()+"</html>", JLabel.CENTER);
 	public static JLabel gold_count = new JLabel("Gold Count", JLabel.CENTER);
 	// public static JLabel leaderboard = new JLabel("", JLabel.CENTER);
 	JButton exit = new JButton("Exit");
@@ -78,7 +79,7 @@ public SideBar(JFrame frame,int tg) {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Long countTime = (System.currentTimeMillis() - startTime) / 1000;
+				countTime = (System.currentTimeMillis() - startTime) / 1000;
 				int secs = (int) ((countTime + MoveListener.time_penalty)% 60 );
 				if (secs < 0) {
 					secs = 0;
@@ -138,7 +139,8 @@ public SideBar(JFrame frame,int tg) {
 		// Addition of player's name
 		this.add(Box.createRigidArea(new Dimension(100, 15)));
 		this.add(playerName);
-		playerName.setPreferredSize(new Dimension(100, 15));
+
+		playerName.setPreferredSize(new Dimension(150, 75));
 		playerName.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
 		// Addition of gold counter
@@ -147,7 +149,6 @@ public SideBar(JFrame frame,int tg) {
 		this.add(gold_count);
 		gold_count.setText("Gold count = " + gold_counter + "/" + total_gold);
 
-		this.add(Box.createRigidArea(new Dimension(100, 100)));
 
 		this.add(Box.createRigidArea(new Dimension(100, 100)));
 
@@ -187,8 +188,7 @@ public SideBar(JFrame frame,int tg) {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Testing writing score to file
-		Score s = new Score();
-		s.writeScoreToFile(Game.getNameText(), gold_counter, mins, secs);
+		System.exit(0);
 		// s.readScoreFromFile();
 		// side_bar.add(new JScrollPane(s.getTable()));
 	}

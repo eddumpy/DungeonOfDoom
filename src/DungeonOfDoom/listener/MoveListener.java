@@ -58,6 +58,8 @@ public class MoveListener implements KeyListener, Runnable {
 			return "door";
 		else if (map1[x][y] == '8')
 			return "blue_potion";
+		else if (map1[x][y] == '9')
+			return "red_potion";
 		else if (map1[x][y] == '3')
 			return "gold";
 		else if (map1[x][y] == 'b')
@@ -180,6 +182,12 @@ public class MoveListener implements KeyListener, Runnable {
 		}
 		if (nextlandform(x, y) == "blue_potion") {
 			time_penalty += 10;
+		}
+		if (nextlandform(x, y) == "red_potion") {
+			if(SideBar.countTime<10)
+				time_penalty-=SideBar.countTime;
+			else 
+				time_penalty -= 10;
 		}
 		if( nextlandform(x, y) == "bot") {
 			x = tempx;

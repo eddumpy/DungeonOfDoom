@@ -30,7 +30,7 @@ public class MapHandling implements Functional{
 				jFrame.remove(comp[i]);
 			}
 		}
-		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","vortex","bot");
+		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","red_potion","vortex","bot");
 		if(SideBar.gold_counter==SideBar.total_gold) {
 			setVortex(map);
 		}
@@ -69,7 +69,7 @@ public class MapHandling implements Functional{
 					grid.add(new JLabel(item.getBlue_potion()));
 					break;
 				case '9':
-					grid.add(new JLabel());
+					grid.add(new JLabel(item.getRed_potion()));
 					break;
 				case 'v':
 					grid.add(new JLabel(item.getVortex()));
@@ -107,7 +107,7 @@ public class MapHandling implements Functional{
 		Item item=new Item("room", "current_room");
 		// TODO Auto-generated method stub
 		try {
-			side_bar.remove(10);
+			side_bar.remove(9);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("no mini map");

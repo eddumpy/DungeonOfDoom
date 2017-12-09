@@ -35,7 +35,7 @@ public class Map {
 
 	public Map(int num) {
 		
-		String filepath="mapc/map"+num+".txt";   
+		String filepath="mapc/"+num+".txt";   
 		File file = new File(filepath);   
 		FileReader fr = null;//use FileReader to read data from a file
 		BufferedReader br = null;//read chars into buffer   
