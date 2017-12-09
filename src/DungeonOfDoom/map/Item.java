@@ -16,9 +16,10 @@ public class Item {
 	private ImageIcon mini_room ;
 	private ImageIcon current_room ;
 	private ImageIcon vortex;
+	private ImageIcon bot;
 
 	public Item(String wall, String ground, String player, String gold, String door1, String door2,
-			String door3, String door4, String blue_potion, String vortex) {
+			String door3, String door4, String blue_potion, String vortex, String bot) {
 		super();
 		this.wall = new ImageIcon("images/"+wall+".png");
 		this.ground  = new ImageIcon("images/"+ground+".png");
@@ -30,6 +31,7 @@ public class Item {
 		this.door4  = new ImageIcon("images/"+door4+".png");
 		this.blue_potion= new ImageIcon("images/"+blue_potion+".png");
 		this.vortex=new ImageIcon("images/"+vortex+".png");
+		this.bot=new ImageIcon("images/"+bot+".png");
 	}
 	public ImageIcon getVortex() {
 		return vortex;
@@ -127,5 +129,9 @@ public class Item {
 
 	public void setCurrent_room(ImageIcon current_room) {
 		this.current_room = current_room;
+	}
+	
+	public ImageIcon getBot() {
+		return bot;
 	}
 }
