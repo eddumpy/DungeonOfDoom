@@ -28,11 +28,19 @@ public class DungeonOfDoom extends JFrame {
 	int cols;
 	int x, y, bx, by;
 
+<<<<<<< HEAD
 	/**
 	 * Method to initialise the maps
 	 * @param index
 	 * 				Reference number of map (value between 0-4)
 	 */
+=======
+	private SideBar side_bar;
+	public Thread t1;
+	public Thread t2;
+
+
+>>>>>>> bot
 	public void Init(int index) {
 		map_init = new Map(index);
 		map1 = map_init.getMap();
@@ -64,10 +72,17 @@ public class DungeonOfDoom extends JFrame {
 		side_bar=new SideBar(frame);
 		
 		mapHandling = new MapHandling(frame);
+<<<<<<< HEAD
 		mapHandling.getGold(mapList);
 		
 		frame.getContentPane(); 
 		frame.setLayout(new BorderLayout());
+=======
+		System.out.println(mapList.size());
+		int tg=mapHandling.getGold(mapList);
+		System.out.println(tg);
+		side_bar=new SideBar(frame,tg);
+>>>>>>> bot
 		frame.add(side_bar, BorderLayout.WEST);
 		frame.setSize(640, 1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,9 +92,20 @@ public class DungeonOfDoom extends JFrame {
 		
 		mapHandling = new MapHandling(frame);
 		Init(index);
+<<<<<<< HEAD
 		moveListener=new MoveListener(map1, x, y, mapHandling, side_bar, frame);
 		
 		frame.addKeyListener(moveListener);
+=======
+		MoveListener moveListener1=new MoveListener(map1, x, y, bx, by,mapHandling, side_bar, frame,1);		
+		MoveListener moveListener2=new MoveListener(map1, x, y, bx, by, mapHandling, side_bar, frame,2);
+		
+		frame.addKeyListener(moveListener1);
+		t1=new Thread(moveListener1);
+		t2=new Thread(moveListener2);
+		t1.start();
+		t2.start();
+>>>>>>> bot
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);
 		frame.setFocusable(true);

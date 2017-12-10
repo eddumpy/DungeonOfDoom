@@ -42,7 +42,7 @@ public class DBManager {
 			 * DriverManager.getConnection("jdbc:sqlite:./" + dbaddr); stat =
 			 * conn.createStatement();
 			 */
-			String insert = "INSERT INTO SCORES (ID,PLAYER,SCORE) VALUES (NULL,'" + name + "','" + score + "');";
+			String insert = "INSERT OR REPLACE INTO SCORES (ID,PLAYER,SCORE) VALUES (NULL,'" + name + "','" + score + "');";
 			System.out.println(name+":"+score);
 			stat.executeUpdate(insert);
 
@@ -94,7 +94,7 @@ public class DBManager {
 		// stat.execute("create table users(name char(30) primary key, password char(20)
 		// not null)");
 		stat.execute(
-				"CREATE TABLE SCORES (ID INT PRIMARY KEY, PLAYER CHAR(20), SCORE CHAR(20));");
+				"CREATE TABLE SCORES (ID INT PRIMARY KEY, PLAYER CHAR(20) UNIQUE, SCORE CHAR(20));");
 		// stat.executeUpdate("insert into users (name,password) values
 		// ('admin','12345')");
 	}

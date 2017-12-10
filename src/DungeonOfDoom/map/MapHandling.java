@@ -18,6 +18,7 @@ import DungeonOfDoom.listener.MoveListener;
 public class MapHandling implements Functional{
 	
 	private JFrame jFrame;
+<<<<<<< HEAD
 	static int total_gold=0;
 	
 	/**
@@ -26,6 +27,11 @@ public class MapHandling implements Functional{
 	 */
 	public MapHandling(JFrame jFrame) {
 		
+=======
+	private int total_gold=0;
+	public MapHandling(JFrame jFrame/*,Map map*/) {
+		// TODO Auto-generated constructor stub
+>>>>>>> bot
 		this.jFrame=jFrame;
 		
 	}
@@ -46,10 +52,15 @@ public class MapHandling implements Functional{
 				jFrame.remove(comp[i]);
 			}
 		}
+<<<<<<< HEAD
 		
 		Item item = new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","vortex");
 		
 		if(SideBar.gold_counter == 1) {
+=======
+		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","red_potion","vortex","bot");
+		if(SideBar.gold_counter==SideBar.total_gold) {
+>>>>>>> bot
 			setVortex(map);
 		}
 		
@@ -61,6 +72,7 @@ public class MapHandling implements Functional{
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
 				switch (map[i][j]) {
+<<<<<<< HEAD
 					case 0:
 						grid.add(new JLabel(item.getGround()));
 						break;
@@ -93,6 +105,44 @@ public class MapHandling implements Functional{
 						break;
 					case 'v':
 						grid.add(new JLabel(item.getVortex()));
+=======
+				case '0':
+					grid.add(new JLabel(item.getGround()));
+					break;
+				case '1':
+					grid.add(new JLabel(item.getWall()));
+					break;
+				case '2':
+					grid.add(new JLabel(item.getPlayer()));
+					break;
+				case '3':
+					grid.add(new JLabel(item.getGold()));
+					break;
+				case '4':
+					grid.add(new JLabel(item.getDoor1()));
+					break;
+				case '5':
+					grid.add(new JLabel(item.getDoor2()));
+					break;
+				case '6':
+					grid.add(new JLabel(item.getDoor3()));
+					break;
+				case '7':
+					grid.add(new JLabel(item.getDoor4()));
+					break;
+				case '8':
+					grid.add(new JLabel(item.getBlue_potion()));
+					break;
+				case '9':
+					grid.add(new JLabel(item.getRed_potion()));
+					break;
+				case 'v':
+					grid.add(new JLabel(item.getVortex()));
+					break;
+				case 'b':
+					grid.add(new JLabel(item.getBot()));
+					break;
+>>>>>>> bot
 				}
 
 			}
@@ -112,9 +162,15 @@ public class MapHandling implements Functional{
 	public int getGold(ArrayList<char[][]> mapList) {
 		
 		for(char[][] map : mapList) {
+<<<<<<< HEAD
 			for(int i = 0; i < 20; i++) {
 				for(int j = 0; j < 20; j++) {
 					if(map[i][j] == 3) {
+=======
+			for(int i=0;i<20;i++) {
+				for(int j=0;j<20;j++) {
+					if(map[i][j]=='3') {
+>>>>>>> bot
 						total_gold++;
 					}					
 				}							
@@ -133,7 +189,7 @@ public class MapHandling implements Functional{
 		Item item = new Item("room", "current_room");
 		
 		try {
-			side_bar.remove(10);
+			side_bar.remove(9);
 		} catch (Exception e) {
 			System.out.println("no mini map");
 		}

@@ -7,7 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -35,12 +36,17 @@ public class Game extends JFrame implements ActionListener {
 	private JLabel background;
 	private JTextArea text;
 	public static String nameText;
+<<<<<<< HEAD
 	public File music;
 	private ImageIcon img;
 	
 	/**
 	 * Constructor. Sets up window.
 	 */
+=======
+	public static DungeonOfDoom Dod;
+	private boolean hasSet=false;
+>>>>>>> bot
 	public Game() {
 		// Initialisation
 		frame = new JFrame(title);
@@ -49,6 +55,7 @@ public class Game extends JFrame implements ActionListener {
 		panel = new JPanel();
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
+<<<<<<< HEAD
 		music = new File("music/Mystical_Music.wav");
 		img = new ImageIcon("images/old_paper_background.png");
 		background = new JLabel(img);
@@ -59,6 +66,46 @@ public class Game extends JFrame implements ActionListener {
 				+ "Good luck and watch out for the monsters lurking in the dark...");
 		
 		// Setting layouts
+=======
+		name.addFocusListener(new FocusListener() {
+			
+			
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+/*				if(nameText.equals("")) {
+					//System.out.println(nameText);
+					hasSet=false;
+				}*/
+				
+			
+				if(hasSet==false) {
+					name.setText("Please enter your name...");				
+				}
+				else {
+					nameText=name.getText();
+					System.out.println(nameText);
+				}
+			}	
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub				
+				name.setText("");
+				System.out.println(nameText);
+				//nameText=name.getText();
+				hasSet=true;
+			}
+		});
+		File Music = new File("music/Mystical_Music.wav");
+		
+		
+		frame.setLayout(new FlowLayout());
+		
+		ImageIcon img = new ImageIcon("images/DungeonBackground2.png");
+		JLabel background = new JLabel(img);
+>>>>>>> bot
 		background.setLayout(new BorderLayout());
 		frame.setLayout(new BorderLayout());
 		panel.setLayout(new FlowLayout());
@@ -124,15 +171,27 @@ public class Game extends JFrame implements ActionListener {
 	 * @param Sound (likely a music file in .wav format)
 	 */
 	public static void PlaySound(File Sound) {
-        
+        while(true) {
 		try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Sound));
             clip.start();
+<<<<<<< HEAD
         } catch(Exception e) {
         		e.printStackTrace();
         }
         
+=======
+            
+        } catch(Exception e){}
+		try {
+			Thread.sleep(103000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        }
+>>>>>>> bot
     }
 	
 	/**
@@ -144,13 +203,19 @@ public class Game extends JFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 		
 		if(cmd.equals("Start")) {
-			if (name.getText().equals("Please enter your name...")) {
+			//System.out.println(name.getText());
+			if (hasSet==false||name.getText().length()==0) {
 				JOptionPane.showMessageDialog(frame, "Please enter your name in the text box provided.");
+			}
+
+			else if(name.getText().length()>10) {
+				JOptionPane.showMessageDialog(frame, "Name is too long! Please enter your name again.");
+				hasSet=false;
 			}
 			else {
 				nameText = name.getText();
 				frame.dispose();
-				new DungeonOfDoom();
+				Dod=new DungeonOfDoom();
 			}
         }
 		
