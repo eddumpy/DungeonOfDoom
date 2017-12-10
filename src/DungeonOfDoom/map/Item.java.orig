@@ -55,9 +55,14 @@ public class Item {
 		this.door3= new ImageIcon("images/"+door3+".png");
 		this.door4  = new ImageIcon("images/"+door4+".png");
 <<<<<<< HEAD
+<<<<<<< HEAD
 		this.blue_potion= new ImageIcon("images/"+blue_potion+".png");
 <<<<<<< HEAD
 		this.vortex=new ImageIcon("images/"+vortex+".png");
+=======
+		this.blue_potion= new ImageIcon("images1/"+blue_potion+".png");
+		this.vortex=new ImageIcon("images1/"+vortex+".png");
+>>>>>>> parent of 924c2c7... Consolidation of images folders
 =======
 		this.blue_potion= new ImageIcon("images1/"+blue_potion+".png");
 		this.vortex=new ImageIcon("images1/"+vortex+".png");
