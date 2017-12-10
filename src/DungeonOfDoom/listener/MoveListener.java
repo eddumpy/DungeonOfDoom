@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import java.io.File;
 import com.sun.org.apache.bcel.internal.classfile.Field;
 
+import DungeonOfDoom.game.Game;
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
@@ -35,6 +36,7 @@ public class MoveListener implements KeyListener, Runnable {
 	private Map newMap;
 	private SideBar side_bar;
 	private JFrame frame;
+	private int mute_count = 0;
 	File collision=new File("music/collision.wav");
 	
 	/**
@@ -200,7 +202,15 @@ public class MoveListener implements KeyListener, Runnable {
 				movePlayer("Right");
 				break;
 			}
-
+			case (KeyEvent.VK_M): {
+				if (mute_count % 2 == 0)
+					Game.clip.stop();
+				else {
+					Game.clip.start();
+				}
+				mute_count++;
+				break;
+			}
 		}
 		
 		// If next landform is a wall, set player's position back to what it was previously.

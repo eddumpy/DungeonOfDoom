@@ -37,6 +37,7 @@ public class Game extends JFrame implements ActionListener {
 	private JTextArea text;
 	public static String nameText;
 	public File music;
+	public static Clip clip;
 	private ImageIcon img;
 	public static DungeonOfDoom Dod;
 	private boolean hasSet=false;
@@ -161,7 +162,7 @@ public class Game extends JFrame implements ActionListener {
 	public static void PlaySound(File Sound) {
         while(true) {
 		try {
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Sound));
             clip.start();    
         } catch(Exception e){}
