@@ -31,7 +31,7 @@ public class Game extends JFrame implements ActionListener {
 	private JButton start, exit;
 	private JPanel panel;
 	private JPanel panel2;
-	private JTextField name;
+	public static JTextField name;
 	private String title = "Dungeon of Doom";
 	private JLabel background;
 	private JTextArea text;
@@ -212,6 +212,10 @@ public class Game extends JFrame implements ActionListener {
 	 */
 	public static String getNameText() {
 		return nameText;
+	}
+	
+	public JButton getStart() {
+		return start;
 	}
 
 }

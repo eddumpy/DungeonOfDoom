@@ -78,7 +78,7 @@ public class MoveListener implements KeyListener, Runnable {
 	 * 			y position of player
 	 * @return String of what the next tile/land-form is
 	 */
-	public String nextlandform(int x, int y) {
+	public String nextLandForm(int x, int y) {
 		if (map1[x][y] == '1')
 			return "wall";
 		else if (map1[x][y] == '2')
@@ -127,7 +127,7 @@ public class MoveListener implements KeyListener, Runnable {
 				break;
 			}
 		}
-		if(nextlandform(bx, by)=="player") {
+		if(nextLandForm(bx, by)=="player") {
 			time_penalty+=10;
 			try {
 				Clip clip=AudioSystem.getClip();
@@ -138,13 +138,32 @@ public class MoveListener implements KeyListener, Runnable {
 				System.out.println("not played");
 			}
 		}
-		if (nextlandform(bx, by) != "land") {
+		if (nextLandForm(bx, by) != "land") {
 			bx = temptbx;
 			by = temptby;
 			// tryToMove();
 		}		
 		map1[bx][by] = 'b';
 		mapHandling.drawMap(map1);
+	}
+	
+	public void movePlayer(String dir) {
+		
+		switch (dir) {
+			case "Up":
+				x -= 1;
+				break;
+			case "Down":
+				x += 1;
+				break;
+			case "Left":
+				y -= 1;
+				break;
+			case "Right":
+				y += 1;
+				break;
+		}
+
 	}
 
 	@Override
@@ -165,46 +184,46 @@ public class MoveListener implements KeyListener, Runnable {
 		
 		switch (e.getKeyCode()) {
 			case (KeyEvent.VK_UP): {
-				x -= 1;
+				movePlayer("Up");
 				break;
 			}
 			case (KeyEvent.VK_DOWN): {
-				x += 1;
+				movePlayer("Down");
 				break;
 	
 			}
 			case (KeyEvent.VK_LEFT): {
-				y -= 1;
+				movePlayer("Left");
 				break;
 			}
 			case (KeyEvent.VK_RIGHT): {
-				y += 1;
+				movePlayer("Right");
 				break;
 			}
 
 		}
 		
 		// If next landform is a wall, set player's position back to what it was previously.
-		if (nextlandform(x, y) == "wall") {
+		if (nextLandForm(x, y) == "wall") {
 			x = tempx;
 			y = tempy;
 		}
 		// If next landform is gold, increment gold counter
-		if (nextlandform(x, y) == "gold") {
+		if (nextLandForm(x, y) == "gold") {
 			SideBar.gold_counter++;
 			SideBar.gold_count.setText("Gold count = " + SideBar.gold_counter + "/" + SideBar.total_gold);
 		}
 		// If next landform is potion, incur time penalty
-		if (nextlandform(x, y) == "blue_potion") {
+		if (nextLandForm(x, y) == "blue_potion") {
 			time_penalty += 10;
 		}
-		if (nextlandform(x, y) == "red_potion") {
+		if (nextLandForm(x, y) == "red_potion") {
 			if(SideBar.countTime<10)
 				time_penalty-=SideBar.countTime;
 			else 
 				time_penalty -= 10;
 		}
-		if( nextlandform(x, y) == "bot") {
+		if( nextLandForm(x, y) == "bot") {
 			x = tempx;
 			y = tempy;
 			time_penalty += 10;
@@ -218,7 +237,7 @@ public class MoveListener implements KeyListener, Runnable {
 			}
 		}
 		// If next landform is a door, check which door and handle maps.
-		if (nextlandform(x, y) == "door") {
+		if (nextLandForm(x, y) == "door") {
 			// System.out.println(mapList.size());
 
 			switch (map1[x][y]) {
@@ -286,7 +305,7 @@ public class MoveListener implements KeyListener, Runnable {
 		}
 
 		// If next landform is a vortex, finish game.
-		if(nextlandform(x, y) == "vortex") {
+		if(nextLandForm(x, y) == "vortex") {
 			SideBar.isFinish=true;
 		}
 		
@@ -319,6 +338,22 @@ public class MoveListener implements KeyListener, Runnable {
 	 */
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	@Override

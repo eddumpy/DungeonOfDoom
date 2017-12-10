@@ -139,12 +139,12 @@ public class Map {
 		this.cols = cols;
 	}
 	
-	public int getGold(int[][] map) {
+	public int getGold(char[][] map) {
 		int total_gold = 0;
 		
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				if (map[i][j] == 3) {
+				if (map[i][j] == '3') {
 					total_gold++;
 				}
 			}
