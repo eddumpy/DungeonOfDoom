@@ -19,7 +19,7 @@ public class Map {
 	public int bx_pos;
 	public int by_pos;
 	public ArrayList<char[][]> mapList=new ArrayList<>();
-<<<<<<< HEAD
+
 	
 	/**
 	 * Default constructor
@@ -32,8 +32,6 @@ public class Map {
 	 * Constructor. Sets map array and finds and stories player's position in the map.
 	 * @param newmap
 	 */
-=======
->>>>>>> bot
 	public Map(char[][] newmap) {
 		this.map=newmap;
 		for(int i=0;i<20;i++) {
@@ -49,46 +47,30 @@ public class Map {
 			}
 		}
 	}
-<<<<<<< HEAD
+
 	
 	/**
 	 * Constructor. Reads map from file and stores map in 2D array.
 	 * @param num
 	 * 			Indicates which map to read (0-4)
 	 */
-=======
-
->>>>>>> bot
 	public Map(int num) {
 		
 		String filepath="mapc/"+num+".txt";   
 		File file = new File(filepath);   
-<<<<<<< HEAD
-		FileReader fr = null; 
-		BufferedReader br = null;    
-=======
 		FileReader fr = null;//use FileReader to read data from a file
 		BufferedReader br = null;//read chars into buffer   
->>>>>>> bot
+
 		try {    
 			fr = new FileReader(file);    
 			br = new BufferedReader(fr);    
 			for (int i = 0; i < 20; i++){      
-<<<<<<< HEAD
-				String line = br.readLine();   
-				byte[] bytes=new byte[20];
-				bytes = line.getBytes();     
-				for (int j = 0; j < bytes.length; j++) {
-					map[i][j] = (char) (bytes[j] - 48);         
-					if (map[i][j] == 2) {
-=======
 				String line = br.readLine();//read lines based on lines
 				//System.out.println(line);  
 				for (int j = 0; j <20; j++) {
 					
 					map[i][j] =  line.charAt(j);// cut each character    
 					if (map[i][j] == '2') {
->>>>>>> bot
 						x_pos = i;
 						y_pos = j;
 					}
@@ -100,15 +82,6 @@ public class Map {
 			} 
 		}     
 		catch (FileNotFoundException e){    
-<<<<<<< HEAD
-			e.printStackTrace();  
-		}     
-		catch (IOException e){        
-			e.printStackTrace();   
-		}    
-		catch(NullPointerException e){     
-			e.printStackTrace();  
-=======
 			e.printStackTrace();
 		}     
 		catch (IOException e){        
@@ -116,7 +89,6 @@ public class Map {
 		}    
 		catch(NullPointerException e){     
 			e.printStackTrace();
->>>>>>> bot
 		}    
 		finally {    
 			if (br == null){     
@@ -136,13 +108,9 @@ public class Map {
 				}      
 				fr = null;     
 			}    
-<<<<<<< HEAD
-		}
-=======
 		}    
 
 
->>>>>>> bot
 	}
 	
 	public ArrayList<char[][]> getMapList() {
@@ -183,12 +151,8 @@ public class Map {
 		}
 		return total_gold;
 	}
-<<<<<<< HEAD
-	
-	public synchronized char[][] getMap() {
-=======
+
 	public char[][] getMap() {
->>>>>>> bot
 		return map;
 	}
 
@@ -211,14 +175,12 @@ public class Map {
 	public void setY(int y) {
 		this.y_pos=y;
 	}
-<<<<<<< HEAD
-	
-=======
+
 	public int getBx_pos() {
 		return bx_pos;
 	}
 	public int getBy_pos() {
 		return by_pos;
 	}
->>>>>>> bot
+
 }

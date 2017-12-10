@@ -36,17 +36,14 @@ public class Game extends JFrame implements ActionListener {
 	private JLabel background;
 	private JTextArea text;
 	public static String nameText;
-<<<<<<< HEAD
 	public File music;
 	private ImageIcon img;
+	public static DungeonOfDoom Dod;
+	private boolean hasSet=false;
 	
 	/**
 	 * Constructor. Sets up window.
 	 */
-=======
-	public static DungeonOfDoom Dod;
-	private boolean hasSet=false;
->>>>>>> bot
 	public Game() {
 		// Initialisation
 		frame = new JFrame(title);
@@ -55,7 +52,6 @@ public class Game extends JFrame implements ActionListener {
 		panel = new JPanel();
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
-<<<<<<< HEAD
 		music = new File("music/Mystical_Music.wav");
 		img = new ImageIcon("images/old_paper_background.png");
 		background = new JLabel(img);
@@ -66,7 +62,6 @@ public class Game extends JFrame implements ActionListener {
 				+ "Good luck and watch out for the monsters lurking in the dark...");
 		
 		// Setting layouts
-=======
 		name.addFocusListener(new FocusListener() {
 			
 			
@@ -98,14 +93,7 @@ public class Game extends JFrame implements ActionListener {
 				hasSet=true;
 			}
 		});
-		File Music = new File("music/Mystical_Music.wav");
-		
-		
-		frame.setLayout(new FlowLayout());
-		
-		ImageIcon img = new ImageIcon("images/DungeonBackground2.png");
-		JLabel background = new JLabel(img);
->>>>>>> bot
+
 		background.setLayout(new BorderLayout());
 		frame.setLayout(new BorderLayout());
 		panel.setLayout(new FlowLayout());
@@ -175,14 +163,7 @@ public class Game extends JFrame implements ActionListener {
 		try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Sound));
-            clip.start();
-<<<<<<< HEAD
-        } catch(Exception e) {
-        		e.printStackTrace();
-        }
-        
-=======
-            
+            clip.start();    
         } catch(Exception e){}
 		try {
 			Thread.sleep(103000);
@@ -191,7 +172,7 @@ public class Game extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
         }
->>>>>>> bot
+
     }
 	
 	/**

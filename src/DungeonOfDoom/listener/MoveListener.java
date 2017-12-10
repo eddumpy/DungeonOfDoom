@@ -18,14 +18,11 @@ import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 import DungeonOfDoom.map.SideBar;
 
-<<<<<<< HEAD
 /**
  * Class for handling arrow key presses for movement
  */
-public class MoveListener implements KeyListener {
-=======
 public class MoveListener implements KeyListener, Runnable {
->>>>>>> bot
+
 	private char[][] map1;
 	private int x, y, bx, by, thread;
 	private int door;
@@ -38,7 +35,7 @@ public class MoveListener implements KeyListener, Runnable {
 	private Map newMap;
 	private SideBar side_bar;
 	private JFrame frame;
-<<<<<<< HEAD
+	File collision=new File("music/collision.wav");
 	
 	/**
 	 * Constructor
@@ -55,15 +52,6 @@ public class MoveListener implements KeyListener, Runnable {
 	 * @param frame
 	 * 			JFrame that contains viewable elements of game
 	 */
-	public MoveListener(char[][] map, int x, int y, MapHandling mapHandling, SideBar sideBar, JFrame frame) {
-
-		this.map1=map;
-		this.x=x;
-		this.y=y;
-		this.mapHandling=mapHandling;
-		this.side_bar=sideBar;
-=======
-	File collision=new File("music/collision.wav");
 	public MoveListener(char[][] map, int x, int y, int bx, int by, MapHandling mapHandling, SideBar sideBar,
 			JFrame frame, int thread) {
 		// TODO Auto-generated constructor stub
@@ -75,13 +63,12 @@ public class MoveListener implements KeyListener, Runnable {
 		this.thread = thread;
 		this.mapHandling = mapHandling;
 		this.side_bar = sideBar;
->>>>>>> bot
 		this.frame = frame;
 		for (int i = 0; i < 5; i++)
 			mapList.add(null);
 
 	}
-<<<<<<< HEAD
+
 	
 	/**
 	 * Method for checking the next tile in the player's path. Used for collision detection.
@@ -92,13 +79,7 @@ public class MoveListener implements KeyListener, Runnable {
 	 * @return String of what the next tile/land-form is
 	 */
 	public String nextlandform(int x, int y) {
-		
-		if (map1[x][y] == 1)
-=======
-
-	public String nextlandform(int x, int y) {
 		if (map1[x][y] == '1')
->>>>>>> bot
 			return "wall";
 		else if (map1[x][y] == '2')
 			return "player";
@@ -117,13 +98,11 @@ public class MoveListener implements KeyListener, Runnable {
 		return "land";
 		
 	}
-<<<<<<< HEAD
+
 	
 	/**
 	 * Auto-generated method stub from KeyListener interface.
 	 */
-=======
-
 	public void tryToMove() {
 		map1[bx][by] = '0';
 		int temptbx, temptby;
@@ -168,7 +147,6 @@ public class MoveListener implements KeyListener, Runnable {
 		mapHandling.drawMap(map1);
 	}
 
->>>>>>> bot
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
@@ -178,18 +156,12 @@ public class MoveListener implements KeyListener, Runnable {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-<<<<<<< HEAD
-		
-		map1[x][y] = 0;
-=======
-		// TODO Auto-generated method stub
+
 		map1[x][y] = '0';
 
->>>>>>> bot
 		int tempx, tempy;
 		tempx = x;
 		tempy = y;
-<<<<<<< HEAD
 		
 		switch (e.getKeyCode()) {
 			case (KeyEvent.VK_UP): {
@@ -209,50 +181,7 @@ public class MoveListener implements KeyListener, Runnable {
 				y += 1;
 				break;
 			}
-=======
 
-		switch (e.getKeyCode()) {
-
-		case (KeyEvent.VK_UP): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-			// map1[x][y] = 0;
-			x -= 1;
-			// map1[x][y] = 2;
-			System.out.printf("x = %d, y = %d\n", x, y);
-
-			break;
-		}
-		case (KeyEvent.VK_DOWN): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-
-			x += 1;
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-
-			break;
-
-		}
-		case (KeyEvent.VK_LEFT): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-
-			y -= 1;
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-			break;
-		}
-		case (KeyEvent.VK_RIGHT): {
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-
-			y += 1;
-
-			System.out.printf("x = %d, y = %d\n", x, y);
-			break;
-		}
->>>>>>> bot
 		}
 		
 		// If next landform is a wall, set player's position back to what it was previously.
@@ -269,24 +198,6 @@ public class MoveListener implements KeyListener, Runnable {
 		if (nextlandform(x, y) == "blue_potion") {
 			time_penalty += 10;
 		}
-<<<<<<< HEAD
-		// If next landform is a door, check which door and handle maps.
-		if (nextlandform(x, y) == "door") {
-
-			switch (map1[x][y]) {
-				case 4:
-					door = 1;
-					break;
-				case 5:
-					door = 2;
-					break;
-				case 6:
-					door = 3;
-					break;
-				case 7:
-					door = 4;
-					break;
-=======
 		if (nextlandform(x, y) == "red_potion") {
 			if(SideBar.countTime<10)
 				time_penalty-=SideBar.countTime;
@@ -306,6 +217,7 @@ public class MoveListener implements KeyListener, Runnable {
 				System.out.println("not played");
 			}
 		}
+		// If next landform is a door, check which door and handle maps.
 		if (nextlandform(x, y) == "door") {
 			// System.out.println(mapList.size());
 
@@ -322,7 +234,7 @@ public class MoveListener implements KeyListener, Runnable {
 			case '7':
 				door = 4;
 				break;
->>>>>>> bot
+
 			}
 
 			x = tempx;
@@ -372,30 +284,16 @@ public class MoveListener implements KeyListener, Runnable {
 				ToSwitch = false;
 			}
 		}
-<<<<<<< HEAD
+
 		// If next landform is a vortex, finish game.
 		if(nextlandform(x, y) == "vortex") {
 			SideBar.isFinish=true;
 		}
 		
-		map1[x][y] = 2;
-		
-		mapHandling.drawMap(map1);
-		
-=======
-		if (nextlandform(x, y) == "vortex") {
-			SideBar.isFinish = true;
-		}
 		map1[x][y] = '2';
-
+		
 		mapHandling.drawMap(map1);
-
-		// Leaderboard pop-up
-		if (SideBar.gold_counter == 1) {
-			// JOptionPane.showMessageDialog(frame, table);
-		}
-
->>>>>>> bot
+		
 		System.out.println(door);
 		mapHandling.drawMiniMap(door, side_bar);
 	}
@@ -405,7 +303,6 @@ public class MoveListener implements KeyListener, Runnable {
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-<<<<<<< HEAD
 	}
 	
 	/**
@@ -420,21 +317,6 @@ public class MoveListener implements KeyListener, Runnable {
 	 * Mutator. Sets count of ... to given value
 	 * @param count
 	 */
-=======
-		// TODO Auto-generated method stub
-		/*
-		 * System.out.println("you pressed a key"); counter++; // Step counter
-		 * System.out.println("The step counter = " + counter);
-		 * System.out.println("The switch statement is next");
-		 */
-
-	}
-
-	public int getCount() {
-		return count;
-	}
-
->>>>>>> bot
 	public void setCount(int count) {
 		this.count = count;
 	}

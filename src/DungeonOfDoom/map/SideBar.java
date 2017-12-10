@@ -55,16 +55,11 @@ public class SideBar extends JPanel implements ActionListener {
 	Timer time = null;
 	private Object[][] data;
 	private String[] columnNames= {"Player","Score"};
-<<<<<<< HEAD
-	
-	public SideBar(JFrame frame) {
 
-		total_gold = getTotalGold();
-=======
-public SideBar(JFrame frame,int tg) {
+	public SideBar(JFrame frame,int tg) {
 		// TODO Auto-generated constructor stub
 		total_gold = tg;
->>>>>>> bot
+
 		this.setLayout(new FlowLayout());
 		this.setPreferredSize(new Dimension(200, getHeight()));
 		this.setOpaque(true);
@@ -98,16 +93,6 @@ public SideBar(JFrame frame,int tg) {
 				String seconds=String.format("%02d", secs);
 				timer.setText("Time: " +minutes  + ":" + seconds);
 				
-				
-<<<<<<< HEAD
-				if (SideBar.isFinish == true) {
-					DBManager dbManger = new DBManager("score.db");
-					String score = minutes + ":" + seconds;
-					DBManager.insertData( Game.getNameText(), score);
-					String[] options = {"OK"};
-					JPanel panel = new JPanel();
-					String[][] content=DBManager.localData();
-=======
 				if (isFinish == true) {
 					DBManager dbManger=new DBManager("score.db");
 					String score=minutes+":"+seconds;
@@ -115,8 +100,6 @@ public SideBar(JFrame frame,int tg) {
 					String[] options= {"Restart","Exit"};
 					JPanel panel=new JPanel();
 					String[][] content=DBManager.localData();
-
->>>>>>> bot
 					data=content;
 					JTable table = new JTable(data,columnNames);
 					DefaultTableCellHeaderRenderer renderer= new DefaultTableCellHeaderRenderer();
@@ -168,11 +151,7 @@ public SideBar(JFrame frame,int tg) {
 		this.add(gold_count);
 		gold_count.setText("Gold count = " + gold_counter + "/" + total_gold);
 
-<<<<<<< HEAD
-		this.add(Box.createRigidArea(new Dimension(100, 100)));
-=======
 
->>>>>>> bot
 		this.add(Box.createRigidArea(new Dimension(100, 100)));
 
 		// Addition of exit button
@@ -212,16 +191,9 @@ public SideBar(JFrame frame,int tg) {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 		
 		System.exit(0);
-		
-=======
-		// Testing writing score to file
-		System.exit(0);
-		// s.readScoreFromFile();
-		// side_bar.add(new JScrollPane(s.getTable()));
->>>>>>> bot
+
 	}
 	
 }
