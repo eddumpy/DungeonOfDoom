@@ -66,7 +66,7 @@ public class SideBar extends JPanel implements ActionListener {
 		this.setBackground(Color.GRAY);
 
 		// Addition of Dungeon of Doom graphic
-		this.add(new JLabel(new ImageIcon("images1/dod.png"), JLabel.CENTER));
+		this.add(new JLabel(new ImageIcon("images/dod.png"), JLabel.CENTER));
 
 		// Addition of timer
 		timer.setFont(new Font("Monospaced", Font.BOLD, 20));
