@@ -44,7 +44,6 @@ public class SideBar extends JPanel implements ActionListener {
 	public static Long countTime;
 	File file;
 	JPanel side_bar;
-	int time_penalty = 0;
 	int secs;
 	int mins;
 	String addr="score.db";
@@ -52,12 +51,15 @@ public class SideBar extends JPanel implements ActionListener {
 	public static JLabel playerName = new JLabel("<html>Player: <br>" + Game.getNameText()+"</html>", JLabel.CENTER);
 	public static JLabel gold_count = new JLabel("Gold Count", JLabel.CENTER);
 	JButton exit = new JButton("Exit");
+	JButton restart = new JButton("Restart");
 	Timer time = null;
 	private Object[][] data;
 	private String[] columnNames= {"Player","Score"};
+	private JFrame frame;
 
-	public SideBar(JFrame frame,int tg) {
-		// TODO Auto-generated constructor stub
+	public SideBar(JFrame frame, int tg) {
+		
+		this.frame = frame;
 		total_gold = tg;
 
 		this.setLayout(new FlowLayout());
@@ -152,10 +154,20 @@ public class SideBar extends JPanel implements ActionListener {
 		gold_count.setText("Gold count = " + gold_counter + "/" + total_gold);
 
 
-		this.add(Box.createRigidArea(new Dimension(100, 100)));
-
+		this.add(Box.createRigidArea(new Dimension(100, 10)));
+		
+		// Addition of restart button
+		restart.setOpaque(true);
+		restart.setBackground(Color.GRAY);
+		restart.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		restart.setPreferredSize(new Dimension(150, 30));
+		this.add(restart);
+		restart.addActionListener(this);
+		restart.setActionCommand("Restart");
+		
+		this.add(Box.createRigidArea(new Dimension(100, 10)));
+		
 		// Addition of exit button
-
 		exit.setOpaque(true);
 		exit.setBackground(Color.GRAY);
 		exit.setFont(new Font("Monospaced", Font.PLAIN, 16));
@@ -192,7 +204,21 @@ public class SideBar extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		System.exit(0);
+		String cmd = e.getActionCommand();
+		
+		if(cmd.equals("Restart")) {
+			MoveListener.time_penalty = 0;
+			gold_counter=0;
+			isFinish=false;
+			frame.dispose();
+			Game.Dod.t1.stop();
+			Game.Dod.t2.stop();
+			Game.Dod=new DungeonOfDoom();
+		}
+		
+		if(cmd.equals("Exit")) {
+			System.exit(0);
+        }
 
 	}
 	

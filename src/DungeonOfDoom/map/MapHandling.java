@@ -137,7 +137,7 @@ public class MapHandling implements Functional{
 		Item item = new Item("room", "current_room");
 		
 		try {
-			side_bar.remove(9);
+			side_bar.remove(11);
 		} catch (Exception e) {
 			System.out.println("no mini map");
 		}
