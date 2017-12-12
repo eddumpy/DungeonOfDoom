@@ -30,7 +30,6 @@ import DungeonOfDoom.game.DungeonOfDoom;
 import DungeonOfDoom.game.Game;
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.score.DBManager;
-import DungeonOfDoom.score.Score;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /** 
@@ -83,6 +82,7 @@ public class SideBar extends JPanel implements ActionListener {
 		ActionListener actionListener;
 		actionListener = new ActionListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				countTime = (System.currentTimeMillis() - startTime) / 1000;
@@ -123,8 +123,8 @@ public class SideBar extends JPanel implements ActionListener {
 						gold_counter=0;
 						isFinish=false;
 						frame.dispose();
-						Game.Dod.t1.stop();
-						Game.Dod.t2.stop();
+						Game.Dod.t1.interrupt();;
+						Game.Dod.t2.interrupt();;
 						Game.Dod=new DungeonOfDoom();
 						
 					}

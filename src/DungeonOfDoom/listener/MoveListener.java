@@ -370,7 +370,7 @@ public class MoveListener implements KeyListener, Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		if (thread == 1) {
-			while (true) {
+			while (!SideBar.isFinish) {
 				try {
 					Thread.sleep(140);
 				} catch (InterruptedException e) {
