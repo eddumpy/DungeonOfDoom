@@ -53,8 +53,9 @@ public class Game extends JFrame implements ActionListener {
 		panel = new JPanel();
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
-		music = new File("music/Mystical_Music.wav");
-		img = new ImageIcon("images/old_paper_background.png");
+		music = new File("/Mystical_Music.wav");
+		//music = new File(this.getClass().getResourceAsStream("/Mystical_Music.wav"));
+		img = new ImageIcon(this.getClass().getResource("/old_paper_background.png"));
 		background = new JLabel(img);
 		text = new JTextArea(
 				"You find yourself in a deep, dark and dingy dungeon. A goblin thief has "

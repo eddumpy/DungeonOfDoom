@@ -101,6 +101,7 @@ public class DungeonOfDoom extends JFrame {
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);
 		frame.setFocusable(true);
+		frame.setVisible(true);
 	}
 		
 }
