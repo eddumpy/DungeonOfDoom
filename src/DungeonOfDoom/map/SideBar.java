@@ -30,7 +30,6 @@ import DungeonOfDoom.game.DungeonOfDoom;
 import DungeonOfDoom.game.Game;
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.score.DBManager;
-import DungeonOfDoom.score.Score;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /** 
