@@ -30,18 +30,13 @@ public class DBManager {
 			}
 			System.out.println("finish");
 		} else {
-			System.out.println("database£ºOK");
+			System.out.println("database OK");
 		}
 	}
 
 	public static void insertData(String name, String score) {
 
 		try {
-			/*
-			 * Class.forName("org.sqlite.JDBC"); conn =
-			 * DriverManager.getConnection("jdbc:sqlite:./" + dbaddr); stat =
-			 * conn.createStatement();
-			 */
 			String insert = "INSERT OR REPLACE INTO SCORES (ID,PLAYER,SCORE) VALUES (NULL,'" + name + "','" + score + "');";
 			System.out.println(name+":"+score);
 			stat.executeUpdate(insert);
@@ -59,9 +54,6 @@ public class DBManager {
 			ResultSet rscount = stat.executeQuery("SELECT COUNT (*) FROM SCORES");
 			rscount.next();
 			int rowcount = rscount.getInt(1);
-			/*if(rowcount>10) {
-				stat.executeQuery("DELETE SELECT MAX (SCORE) FROM SCORES;");
-			}*/
 			System.out.println("row count:"+rowcount);
 			toreturn = new String[rowcount][2];
 			String read = "SELECT * FROM SCORES ORDER BY SCORE ASC;";
@@ -79,24 +71,10 @@ public class DBManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return toreturn;
 	}
-/*	public static void remainList() {
-		try {
-			ResultSet rscount = stat.executeQuery("");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
 	public static void createlocaldatabase(String addr) throws SQLException {
-		// stat.execute("create table users(name char(30) primary key, password char(20)
-		// not null)");
-		stat.execute(
-				"CREATE TABLE SCORES (ID INT PRIMARY KEY, PLAYER CHAR(20) UNIQUE, SCORE CHAR(20));");
-		// stat.executeUpdate("insert into users (name,password) values
-		// ('admin','12345')");
+		stat.execute("CREATE TABLE SCORES (ID INT PRIMARY KEY, PLAYER CHAR(20) UNIQUE, SCORE CHAR(20));");
 	}
 
 }
