@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -56,20 +60,15 @@ public class Map {
 	 */
 	public Map(int num) {
 		
-		String filepath="mapc/"+num+".txt";   
-		File file = new File(filepath);   
-		FileReader fr = null;//use FileReader to read data from a file
-		BufferedReader br = null;//read chars into buffer   
+		URL filepath = this.getClass().getResource("/"+num+".txt");
+		BufferedReader br = null; //read chars into buffer   
 
 		try {    
-			fr = new FileReader(file);    
-			br = new BufferedReader(fr);    
+			br = new BufferedReader(new InputStreamReader(filepath.openStream()));    
 			for (int i = 0; i < 20; i++){      
 				String line = br.readLine();//read lines based on lines
-				//System.out.println(line);  
 				for (int j = 0; j <20; j++) {
-					
-					map[i][j] =  line.charAt(j);// cut each character    
+					map[i][j] =  line.charAt(j); // cut each character    
 					if (map[i][j] == '2') {
 						x_pos = i;
 						y_pos = j;
@@ -81,7 +80,7 @@ public class Map {
 				}
 			} 
 		}     
-		catch (FileNotFoundException e){    
+		catch (FileNotFoundException e){  
 			e.printStackTrace();
 		}     
 		catch (IOException e){        
@@ -98,16 +97,7 @@ public class Map {
 				catch (IOException e){      
 					e.printStackTrace();     
 					}     br = null;    
-					}    
-			if (fr == null){       
-				try { 
-					fr.close();      
-				} 
-				catch (IOException e){      
-					e.printStackTrace();     
-				}      
-				fr = null;     
-			}    
+					}     
 		}    
 
 

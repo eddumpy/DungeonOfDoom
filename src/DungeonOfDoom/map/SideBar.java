@@ -67,7 +67,7 @@ public class SideBar extends JPanel implements ActionListener {
 		this.setBackground(Color.GRAY);
 
 		// Addition of Dungeon of Doom graphic
-		this.add(new JLabel(new ImageIcon("images/dod.png"), JLabel.CENTER));
+		this.add(new JLabel(new ImageIcon(this.getClass().getResource("/dod.png")), JLabel.CENTER));
 
 		// Addition of timer
 		timer.setFont(new Font("Monospaced", Font.BOLD, 20));
@@ -82,7 +82,6 @@ public class SideBar extends JPanel implements ActionListener {
 		ActionListener actionListener;
 		actionListener = new ActionListener() {
 
-			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				countTime = (System.currentTimeMillis() - startTime) / 1000;
