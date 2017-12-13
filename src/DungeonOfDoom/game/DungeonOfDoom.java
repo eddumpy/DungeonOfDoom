@@ -52,9 +52,9 @@ public class DungeonOfDoom extends JFrame {
 
 		try {
 			Map map;
-			for(int i=0;i<5;i++) {
-				map=new Map(i);
-				char[][] maps=map.getMap();
+			for(int i = 0; i < 5; i++) {
+				map = new Map(i);
+				char[][] maps = map.getMap();
 				mapList.add(maps);
 			}
 		} catch (NullPointerException e) {
@@ -98,9 +98,25 @@ public class DungeonOfDoom extends JFrame {
 			t2.interrupt();
 		}
 		mapHandling.drawMap(map1);
-		mapHandling.drawMiniMap(room_num,side_bar);
+		mapHandling.drawMiniMap(room_num, side_bar);
 		frame.setFocusable(true);
 		frame.setVisible(true);
+	}
+	
+	/**
+	 * Accessor for DoD JFrame
+	 * @return JFrame
+	 */
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	/**
+	 * Mutator for DoD JFrame
+	 * @param frame
+	 */
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 		
 }

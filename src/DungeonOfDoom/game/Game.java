@@ -32,6 +32,7 @@ import javax.swing.JTextField;
  * Class for setting up a game
  */
 public class Game extends JFrame implements ActionListener {
+	
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JButton start, exit;

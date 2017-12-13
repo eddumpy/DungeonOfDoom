@@ -2,17 +2,12 @@ package DungeonOfDoom.tests;
 
 import static org.junit.Assert.*;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JFrame;
 
 import org.junit.Test;
 
 import DungeonOfDoom.game.SideBar;
 import DungeonOfDoom.listener.MoveListener;
-import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
 
 /**
@@ -22,7 +17,7 @@ import DungeonOfDoom.map.MapHandling;
 public class MovementTest {
 	
 	private MapHandling mapHandling;
-	private char[][] map = {{'0','1','2','3','4','5','6','7','8'}};
+	private char[][] map = {{'0','1','2','3','4','5','6','7','8','9','b','v'}};
 	private SideBar side_bar;
 	private JFrame frame;
 	int x = 10;
@@ -39,9 +34,9 @@ public class MovementTest {
 	 */
 	@Test
 	public void testNextLandForm() {
-		String[] landforms = {"land", "wall", "character", "gold", "door", "door", "door", "door", "blue_potion"};
+		String[] landforms = {"land", "wall", "player", "gold", "door", "door", "door", "door", "blue_potion", "red_potion", "bot", "vortex"};
 		
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 12; i++) {
 			assertEquals(landforms[i] , movelistener.nextLandForm(0, i));
 		}
 			

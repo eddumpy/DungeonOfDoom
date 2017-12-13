@@ -2,10 +2,6 @@ package DungeonOfDoom.tests;
 
 import static org.junit.Assert.*;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-
 import org.junit.Test;
 
 import DungeonOfDoom.game.DungeonOfDoom;
@@ -23,14 +19,9 @@ public class testDungeonOfDoom {
 	
 	@Test
 	public void testFrameSize() {
-		assertEquals(640, dod.getSize());
+		assertEquals(640 + 200, dod.getFrame().getWidth()); // 640 + side bar width
+		assertEquals(662, dod.getFrame().getHeight());
 	}
 	
-	@Test
-	public void testSideBarPosition() {
-		
-		fail("Not yet implemented.");
-		
-	}
 
 }
