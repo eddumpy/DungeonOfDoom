@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 import java.net.URL;
 
 import DungeonOfDoom.game.Game;
+import DungeonOfDoom.game.SideBar;
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
-import DungeonOfDoom.map.SideBar;
 
 /**
  * Class for handling arrow key presses for movement

@@ -10,10 +10,10 @@ import javax.swing.JFrame;
 
 import org.junit.Test;
 
+import DungeonOfDoom.game.SideBar;
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
-import DungeonOfDoom.map.SideBar;
 
 /**
  * @author edjeffery

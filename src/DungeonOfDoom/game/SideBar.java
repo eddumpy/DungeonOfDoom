@@ -1,4 +1,4 @@
-package DungeonOfDoom.map;
+package DungeonOfDoom.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,10 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 
-import DungeonOfDoom.game.DungeonOfDoom;
-import DungeonOfDoom.game.Game;
+import DungeonOfDoom.database.DBManager;
 import DungeonOfDoom.listener.MoveListener;
-import DungeonOfDoom.score.DBManager;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /** 

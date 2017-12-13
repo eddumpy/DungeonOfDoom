@@ -1,4 +1,4 @@
-package DungeonOfDoom.score;
+package DungeonOfDoom.database;
 
 import java.io.File;
 import java.sql.*;

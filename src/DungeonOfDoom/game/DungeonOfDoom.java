@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import DungeonOfDoom.listener.MoveListener;
 import DungeonOfDoom.map.Map;
 import DungeonOfDoom.map.MapHandling;
-import DungeonOfDoom.map.SideBar;
 
 /**
  * Class for setting up the Dungeon of Doom game
