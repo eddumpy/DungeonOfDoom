@@ -1,5 +1,7 @@
 package DungeonOfDoom.game;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,9 +11,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +31,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import DungeonOfDoom.tests.testDungeonOfDoom;
+import sun.audio.AudioStream;
 
 /**
  * Class for setting up a game
@@ -53,30 +66,28 @@ public class Game extends JFrame implements ActionListener {
 		panel = new JPanel();
 		panel2 = new JPanel();
 		name = new JTextField("Please enter your name...");
-		music = new File("/Mystical_Music.wav");
-		//music = new File(this.getClass().getResourceAsStream("/Mystical_Music.wav"));
+		URL filepath = this.getClass().getResource("/Mystical_Music.wav");
+		AudioInputStream music = null;
+		try {
+			music = AudioSystem.getAudioInputStream(filepath);
+		} catch (UnsupportedAudioFileException e2) {
+			e2.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 		img = new ImageIcon(this.getClass().getResource("/old_paper_background.png"));
 		background = new JLabel(img);
 		text = new JTextArea(
 				"You find yourself in a deep, dark and dingy dungeon. A goblin thief has "
-				+ "stolen all your gold, but has dropped in throughout the different rooms. "
+				+ "stolen all your gold, but has dropped it throughout the different rooms. "
 				+ "You must collect all gold in the dungeon to be able to escape. "
 				+ "Good luck and watch out for the monsters lurking in the dark...");
 		
-		// Setting layouts
+		// Adding focus listener to JTextField
 		name.addFocusListener(new FocusListener() {
-			
-			
-
+	
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-/*				if(nameText.equals("")) {
-					//System.out.println(nameText);
-					hasSet=false;
-				}*/
-				
-			
 				if(hasSet==false) {
 					name.setText("Please enter your name...");				
 				}
@@ -87,15 +98,14 @@ public class Game extends JFrame implements ActionListener {
 			}	
 			
 			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub				
+			public void focusGained(FocusEvent e) {				
 				name.setText("");
 				System.out.println(nameText);
-				//nameText=name.getText();
 				hasSet=true;
 			}
 		});
-
+		
+		// Setting layouts
 		background.setLayout(new BorderLayout());
 		frame.setLayout(new BorderLayout());
 		panel.setLayout(new FlowLayout());
@@ -137,7 +147,6 @@ public class Game extends JFrame implements ActionListener {
 		
 		// Start music
 		PlaySound(music);
-		
 	}
 	
 	/**
@@ -160,12 +169,12 @@ public class Game extends JFrame implements ActionListener {
 	 * Method for playing sound
 	 * @param Sound (likely a music file in .wav format)
 	 */
-	public static void PlaySound(File Sound) {
+	public static void PlaySound(AudioInputStream Sound) {
         while(true) {
 		try {
             clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(Sound));
-            clip.start();    
+            clip.open(Sound);
+            clip.start();
         } catch(Exception e){}
 		try {
 			Thread.sleep(103000);

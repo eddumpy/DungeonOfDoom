@@ -2,17 +2,15 @@ package DungeonOfDoom.listener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.nio.file.Files;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 
-import java.io.File;
-import com.sun.org.apache.bcel.internal.classfile.Field;
+import java.net.URL;
 
 import DungeonOfDoom.game.Game;
 import DungeonOfDoom.map.Map;
@@ -37,7 +35,8 @@ public class MoveListener implements KeyListener, Runnable {
 	private SideBar side_bar;
 	private JFrame frame;
 	private int mute_count = 0;
-	File collision=new File("music/collision.wav");
+	URL filepath = this.getClass().getResource("/collision.wav");
+	AudioInputStream collision = null;
 	
 	/**
 	 * Constructor
@@ -56,7 +55,7 @@ public class MoveListener implements KeyListener, Runnable {
 	 */
 	public MoveListener(char[][] map, int x, int y, int bx, int by, MapHandling mapHandling, SideBar sideBar,
 			JFrame frame, int thread) {
-		// TODO Auto-generated constructor stub
+
 		this.map1 = map;
 		this.x = x;
 		this.y = y;
@@ -132,18 +131,17 @@ public class MoveListener implements KeyListener, Runnable {
 		if(nextLandForm(bx, by)=="player") {
 			time_penalty+=10;
 			try {
+				collision = AudioSystem.getAudioInputStream(filepath);
 				Clip clip=AudioSystem.getClip();
-				clip.open(AudioSystem.getAudioInputStream(collision));
+				clip.open(collision);
 				clip.start();
 			} catch (Exception e2) {
-				// TODO: handle exception
-				System.out.println("not played");
+				System.out.println("Collision not played");
 			}
 		}
 		if (nextLandForm(bx, by) != "land") {
 			bx = temptbx;
 			by = temptby;
-			// tryToMove();
 		}		
 		map1[bx][by] = 'b';
 		mapHandling.drawMap(map1);
@@ -238,11 +236,11 @@ public class MoveListener implements KeyListener, Runnable {
 			y = tempy;
 			time_penalty += 10;
 			try {
+				collision = AudioSystem.getAudioInputStream(filepath);
 				Clip clip=AudioSystem.getClip();
-				clip.open(AudioSystem.getAudioInputStream(collision));
+				clip.open(collision);
 				clip.start();
 			} catch (Exception e2) {
-				// TODO: handle exception
 				System.out.println("not played");
 			}
 		}
