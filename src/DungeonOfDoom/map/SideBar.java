@@ -8,10 +8,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -21,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
@@ -55,8 +50,15 @@ public class SideBar extends JPanel implements ActionListener {
 	private Object[][] data;
 	private String[] columnNames= {"Player","Score"};
 	private JFrame frame;
-
-	public SideBar(JFrame frame, int tg) {
+	
+	/**
+	 * Constructor for creating the side bar.
+	 * @param frame
+	 * 			JFrame upon which to add itself
+	 * @param tg
+	 * 			Total gold count
+	 */
+	public SideBar (JFrame frame, int tg) {
 		
 		this.frame = frame;
 		total_gold = tg;
@@ -85,25 +87,27 @@ public class SideBar extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				countTime = (System.currentTimeMillis() - startTime) / 1000;
-				int secs = (int) ((countTime + MoveListener.time_penalty)% 60 );
+				int secs = (int) ((countTime + MoveListener.time_penalty) % 60 );
+				// Need to handle if the seconds is less than 0 due to the red potion taking off 10 seconds.
 				if (secs < 0) {
 					secs = 0;
 				}
-				int mins = (int) (System.currentTimeMillis() - startTime+MoveListener.time_penalty*1000) / 60000;
-				String minutes=String.format("%02d", mins);
-				String seconds=String.format("%02d", secs);
-				timer.setText("Time: " +minutes  + ":" + seconds);
+				int mins = (int) (System.currentTimeMillis() - startTime + MoveListener.time_penalty * 1000) / 60000;
+				String minutes = String.format("%02d", mins);
+				String seconds = String.format("%02d", secs);
+				timer.setText("Time: " + minutes  + ":" + seconds);
 				
+				// If game is finished, display leaderboard
 				if (isFinish == true) {
-					DBManager dbManger=new DBManager("score.db");
-					String score=minutes+":"+seconds;
-					DBManager.insertData( Game.getNameText(), score);
-					String[] options= {"Restart","Exit"};
-					JPanel panel=new JPanel();
-					String[][] content=DBManager.localData();
-					data=content;
+					DBManager dbManager = new DBManager("score.db");
+					String score = minutes + ":" + seconds;
+					DBManager.insertData(Game.getNameText(), score);
+					String[] options = {"Restart","Exit"};
+					JPanel panel = new JPanel();
+					String[][] content = DBManager.localData();
+					data = content;
 					JTable table = new JTable(data,columnNames);
-					DefaultTableCellHeaderRenderer renderer= new DefaultTableCellHeaderRenderer();
+					DefaultTableCellHeaderRenderer renderer = new DefaultTableCellHeaderRenderer();
 					renderer.setHorizontalAlignment(JLabel.CENTER);
 					renderer.setBackground(Color.white);
 					table.setDefaultRenderer(Object.class, renderer);
@@ -111,24 +115,24 @@ public class SideBar extends JPanel implements ActionListener {
 					JScrollPane jsPane = new JScrollPane();
 					jsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 					jsPane.setViewportView(table);
-					JLabel finishLabel=new JLabel("Game finished!",JLabel.CENTER);
+					JLabel finishLabel = new JLabel("Game finished!",JLabel.CENTER);
 					finishLabel.setLayout(new BorderLayout());
 					panel.setLayout(new BorderLayout());
 					panel.add(finishLabel,BorderLayout.NORTH);
 					panel.add(jsPane);
 					
-					int response=JOptionPane.showOptionDialog(frame, panel, "Score", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-					if(response==0) {
-						gold_counter=0;
-						isFinish=false;
+					int response = JOptionPane.showOptionDialog(frame, panel, "Score", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+					if (response == 0) {
+						gold_counter = 0;
+						isFinish = false;
 						frame.dispose();
-						Game.Dod.t1.interrupt();;
-						Game.Dod.t2.interrupt();;
-						Game.Dod=new DungeonOfDoom();
+						Game.Dod.t1.interrupt();
+						Game.Dod.t2.interrupt();
+						Game.Dod = new DungeonOfDoom();
 						
 					}
-					if(response==1) {
-						System.exit(0);//exit game
+					if (response == 1) {
+						System.exit(0); //exit game
 					}
 					time.stop();
 
@@ -152,7 +156,7 @@ public class SideBar extends JPanel implements ActionListener {
 		this.add(gold_count);
 		gold_count.setText("Gold count = " + gold_counter + "/" + total_gold);
 
-
+		// Side bar spacing
 		this.add(Box.createRigidArea(new Dimension(100, 10)));
 		
 		// Addition of restart button
@@ -164,6 +168,7 @@ public class SideBar extends JPanel implements ActionListener {
 		restart.addActionListener(this);
 		restart.setActionCommand("Restart");
 		
+		// Side bar spacing
 		this.add(Box.createRigidArea(new Dimension(100, 10)));
 		
 		// Addition of exit button
@@ -176,29 +181,49 @@ public class SideBar extends JPanel implements ActionListener {
 		exit.setActionCommand("Exit");
 
 	}
-
+	
+	/**
+	 * Accessor for total gold count across all rooms.
+	 * @return Total gold count.
+	 */
 	public int getTotalGold() {
 		return total_gold;
 	}
-
+	
+	/**
+	 * Mutator for setting the player's gold count
+	 * @param gold_count
+	 */
 	public void setGoldCount(JLabel gold_count) {
 		this.gold_count = gold_count;
 	}
-
+	
+	/**
+	 * Accessor for getting current gold count.
+	 * @return
+	 */
 	public JLabel getGoldCount() {
 		return this.gold_count;
 	}
-
+	
+	/** 
+	 * Accessor for SideBar object (so it can be edited)
+	 * @return SideBar
+	 */
 	public SideBar getSideBar() {
 		return this;
 	}
-
+	
+	/**
+	 * Mutator for SideBar object
+	 * @param sideBar
+	 */
 	public void setSideBar(SideBar sideBar) {
 		this.side_bar = sideBar;
 	}
 
 	/**
-	 * Method for handling exit button press.
+	 * Method for handling restart and exit button press.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -207,12 +232,12 @@ public class SideBar extends JPanel implements ActionListener {
 		
 		if(cmd.equals("Restart")) {
 			MoveListener.time_penalty = 0;
-			gold_counter=0;
-			isFinish=false;
+			gold_counter = 0;
+			isFinish = false;
 			frame.dispose();
 			Game.Dod.t1.stop();
 			Game.Dod.t2.stop();
-			Game.Dod=new DungeonOfDoom();
+			Game.Dod = new DungeonOfDoom();
 		}
 		
 		if(cmd.equals("Exit")) {

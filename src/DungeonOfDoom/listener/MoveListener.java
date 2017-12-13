@@ -25,9 +25,9 @@ public class MoveListener implements KeyListener, Runnable {
 	private char[][] map1;
 	private int x, y, bx, by, thread;
 	private int door;
-	private boolean ToSave;
-	private boolean ToSwitch;
-	public static int count = 1;
+	private boolean toSave;
+	private boolean toSwitch;
+	public static int count = 1; // records whether in outer or centre room (odd or even, respectively). Used in mini-map.
 	private ArrayList<char[][]> mapList = new ArrayList<char[][]>();
 	public static int time_penalty;
 	private MapHandling mapHandling;
@@ -105,14 +105,15 @@ public class MoveListener implements KeyListener, Runnable {
 	 * Auto-generated method stub from KeyListener interface.
 	 */
 	public void tryToMove() {
+		
 		map1[bx][by] = '0';
 		int temptbx, temptby;
 		temptbx = bx;
 		temptby = by;
 		Random random = new Random();
 		int rand = random.nextInt(4);
-		System.out.println("Rand" + rand);
-		if (ToSave == false) {
+		
+		if (toSave == false) {
 			switch (rand) {
 			case 0:
 				bx -= 1;
@@ -128,8 +129,9 @@ public class MoveListener implements KeyListener, Runnable {
 				break;
 			}
 		}
-		if(nextLandForm(bx, by)=="player") {
-			time_penalty+=10;
+		
+		if(nextLandForm(bx, by) == "player") {
+			time_penalty += 10;
 			try {
 				collision = AudioSystem.getAudioInputStream(filepath);
 				Clip clip=AudioSystem.getClip();
@@ -139,6 +141,7 @@ public class MoveListener implements KeyListener, Runnable {
 				System.out.println("Collision not played");
 			}
 		}
+		
 		if (nextLandForm(bx, by) != "land") {
 			bx = temptbx;
 			by = temptby;
@@ -226,8 +229,8 @@ public class MoveListener implements KeyListener, Runnable {
 			time_penalty += 10;
 		}
 		if (nextLandForm(x, y) == "red_potion") {
-			if(SideBar.countTime<10)
-				time_penalty-=SideBar.countTime;
+			if(SideBar.countTime < 10)
+				time_penalty -= SideBar.countTime;
 			else 
 				time_penalty -= 10;
 		}
@@ -246,30 +249,28 @@ public class MoveListener implements KeyListener, Runnable {
 		}
 		// If next landform is a door, check which door and handle maps.
 		if (nextLandForm(x, y) == "door") {
-			// System.out.println(mapList.size());
 
 			switch (map1[x][y]) {
-			case '4':
-				door = 1;
-				break;
-			case '5':
-				door = 2;
-				break;
-			case '6':
-				door = 3;
-				break;
-			case '7':
-				door = 4;
-				break;
-
+				case '4':
+					door = 1;
+					break;
+				case '5':
+					door = 2;
+					break;
+				case '6':
+					door = 3;
+					break;
+				case '7':
+					door = 4;
+					break;
 			}
 
 			x = tempx;
 			y = tempy;
-			ToSave = true;
-			ToSwitch = true;
+			toSave = true;
+			toSwitch = true;
 
-			if (ToSave == true) {
+			if (toSave == true) {
 				map1[x][y] = '2';
 				if (count % 2 == 1)
 					mapList.set(0, map1);
@@ -278,14 +279,11 @@ public class MoveListener implements KeyListener, Runnable {
 				}
 				count++;
 				setCount(count);
-				// savemap = map1;
-				System.out.println("save");
-
-				ToSave = false;
+				toSave = false;
 
 			}
 			
-			if (ToSwitch == true) {
+			if (toSwitch == true) {
 				System.out.println(door);
 
 				if (mapList.get(door) != null) {
@@ -308,21 +306,20 @@ public class MoveListener implements KeyListener, Runnable {
 				bx = newMap.getBx_pos();
 				by = newMap.getBy_pos();
 				map1 = newMap.getMap();
-				ToSwitch = false;
+				toSwitch = false;
 			}
 		}
 
 		// If next landform is a vortex, finish game.
 		if(nextLandForm(x, y) == "vortex") {
-			SideBar.isFinish=true;
+			SideBar.isFinish = true;
 		}
 		
 		map1[x][y] = '2';
 		
 		mapHandling.drawMap(map1);
-		
-		System.out.println(door);
 		mapHandling.drawMiniMap(door, side_bar);
+		
 	}
 	
 	/**
@@ -333,7 +330,7 @@ public class MoveListener implements KeyListener, Runnable {
 	}
 	
 	/**
-	 * Accessor. Gets count for...
+	 * Accessor. Gets count for whether in centre or outside room.
 	 * @return
 	 */
 	public int getCount() {
@@ -341,7 +338,7 @@ public class MoveListener implements KeyListener, Runnable {
 	}
 	
 	/**
-	 * Mutator. Sets count of ... to given value
+	 * Mutator. Sets whether player is in centre or outside room.
 	 * @param count
 	 */
 	public void setCount(int count) {
@@ -366,13 +363,11 @@ public class MoveListener implements KeyListener, Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		if (thread == 1) {
 			while (!SideBar.isFinish) {
 				try {
 					Thread.sleep(140);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				tryToMove();

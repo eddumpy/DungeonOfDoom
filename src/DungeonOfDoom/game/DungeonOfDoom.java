@@ -94,9 +94,9 @@ public class DungeonOfDoom extends JFrame {
 		t2=new Thread(moveListener2);
 		t1.start();
 		t2.start();
-		if(SideBar.isFinish==true) {
-			t1.interrupt();;
-			t2.interrupt();;
+		if(SideBar.isFinish == true) {
+			t1.interrupt();
+			t2.interrupt();
 		}
 		mapHandling.drawMap(map1);
 		mapHandling.drawMiniMap(room_num,side_bar);

@@ -18,8 +18,7 @@ import DungeonOfDoom.listener.MoveListener;
 public class MapHandling implements Functional{
 	
 	private JFrame jFrame;
-	//static int total_gold=0;
-	private int total_gold=0;
+	private int total_gold = 0;
 	
 	/**
 	 * Constructor.
@@ -27,7 +26,7 @@ public class MapHandling implements Functional{
 	 */
 	public MapHandling(JFrame jFrame) {
 
-		this.jFrame=jFrame;
+		this.jFrame = jFrame;
 		
 	}
 
@@ -48,8 +47,9 @@ public class MapHandling implements Functional{
 			}
 		}
 
-		Item item=new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","red_potion","vortex","bot");
-		if(SideBar.gold_counter==SideBar.total_gold) {
+		Item item = new Item("wall", "ground", "player", "gold", "door1",  "door2",  "door3",  "door4", "blue_potion","red_potion","vortex","bot");
+		
+		if(SideBar.gold_counter == SideBar.total_gold) {
 			setVortex(map);
 		}
 		
@@ -116,9 +116,9 @@ public class MapHandling implements Functional{
 	public int getGold(ArrayList<char[][]> mapList) {
 		
 		for(char[][] map : mapList) {
-			for(int i=0;i<20;i++) {
-				for(int j=0;j<20;j++) {
-					if(map[i][j]=='3') {
+			for(int i = 0; i < 20; i++) {
+				for(int j = 0; j < 20; j++) {
+					if(map[i][j] == '3') {
 						total_gold++;
 					}					
 				}							
@@ -196,6 +196,10 @@ public class MapHandling implements Functional{
 		side_bar.add(mini_grid);
 	}
 	
+	/**
+	 * Mutator. Sets bottom left-hand corner square to a vortex
+	 * @param map
+	 */
 	public void setVortex(char[][] map) {
 		map[18][1]='v';
 	}

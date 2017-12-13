@@ -40,19 +40,19 @@ public class Item {
 			String door3, String door4, String blue_potion,String red_potion, String vortex, String bot) {
 		
 		super();
-		this.wall = new ImageIcon(this.getClass().getResource("/wall.png"));
-		this.ground  = new ImageIcon(this.getClass().getResource("/ground.png"));
-		this.player= new ImageIcon(this.getClass().getResource("/player.png"));
-		this.gold = new ImageIcon(this.getClass().getResource("/gold.png"));
-		this.door1 = new ImageIcon(this.getClass().getResource("/door1.png"));
-		this.door2  = new ImageIcon(this.getClass().getResource("/door2.png"));
-		this.door3= new ImageIcon(this.getClass().getResource("/door3.png"));
-		this.door4  = new ImageIcon(this.getClass().getResource("/door4.png"));
-		this.blue_potion= new ImageIcon(this.getClass().getResource("/blue_potion.png"));
-		this.vortex=new ImageIcon(this.getClass().getResource("/vortex.png"));
-		this.red_potion=new ImageIcon(this.getClass().getResource("/red_potion.png"));
-		this.vortex=new ImageIcon(this.getClass().getResource("/vortex.png"));
-		this.bot=new ImageIcon(this.getClass().getResource("/bot.png"));
+		this.wall = new ImageIcon(this.getClass().getResource("/"+wall+".png"));
+		this.ground  = new ImageIcon(this.getClass().getResource("/"+ground+".png"));
+		this.player= new ImageIcon(this.getClass().getResource("/"+player+".png"));
+		this.gold = new ImageIcon(this.getClass().getResource("/"+gold+".png"));
+		this.door1 = new ImageIcon(this.getClass().getResource("/"+door1+".png"));
+		this.door2  = new ImageIcon(this.getClass().getResource("/"+door2+".png"));
+		this.door3= new ImageIcon(this.getClass().getResource("/"+door3+".png"));
+		this.door4  = new ImageIcon(this.getClass().getResource("/"+door4+".png"));
+		this.blue_potion= new ImageIcon(this.getClass().getResource("/"+blue_potion+".png"));
+		this.vortex=new ImageIcon(this.getClass().getResource("/"+vortex+".png"));
+		this.red_potion=new ImageIcon(this.getClass().getResource("/"+red_potion+".png"));
+		this.vortex=new ImageIcon(this.getClass().getResource("/"+vortex+".png"));
+		this.bot=new ImageIcon(this.getClass().getResource("/"+bot+".png"));
 	}
 	
 	public Item(String mini_room, String current_room) {

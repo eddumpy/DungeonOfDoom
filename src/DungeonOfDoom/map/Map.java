@@ -37,10 +37,10 @@ public class Map {
 	 * @param newmap
 	 */
 	public Map(char[][] newmap) {
-		this.map=newmap;
-		for(int i=0;i<20;i++) {
-			for(int j=0;j<20;j++) {
-				if(map[i][j]=='2') {
+		this.map = newmap;
+		for(int i = 0; i < 20; i++) {
+			for(int j = 0; j < 20; j++) {
+				if(map[i][j] == '2') {
 					x_pos = i;
 					y_pos = j;
 				}
@@ -67,7 +67,7 @@ public class Map {
 			br = new BufferedReader(new InputStreamReader(filepath.openStream()));    
 			for (int i = 0; i < 20; i++){      
 				String line = br.readLine();//read lines based on lines
-				for (int j = 0; j <20; j++) {
+				for (int j = 0; j < 20; j++) {
 					map[i][j] =  line.charAt(j); // cut each character    
 					if (map[i][j] == '2') {
 						x_pos = i;

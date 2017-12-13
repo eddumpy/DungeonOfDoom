@@ -1,7 +1,5 @@
 package DungeonOfDoom.game;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,11 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
@@ -32,8 +27,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import DungeonOfDoom.tests.testDungeonOfDoom;
-import sun.audio.AudioStream;
 
 /**
  * Class for setting up a game
@@ -93,14 +86,12 @@ public class Game extends JFrame implements ActionListener {
 				}
 				else {
 					nameText=name.getText();
-					System.out.println(nameText);
 				}
 			}	
 			
 			@Override
 			public void focusGained(FocusEvent e) {				
 				name.setText("");
-				System.out.println(nameText);
 				hasSet=true;
 			}
 		});
@@ -145,7 +136,7 @@ public class Game extends JFrame implements ActionListener {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		// Start music
+		// Play music
 		PlaySound(music);
 	}
 	
@@ -167,7 +158,7 @@ public class Game extends JFrame implements ActionListener {
 	
 	/**
 	 * Method for playing sound
-	 * @param Sound (likely a music file in .wav format)
+	 * @param Sound (an inputstream of audio in .wav format)
 	 */
 	public static void PlaySound(AudioInputStream Sound) {
         while(true) {
@@ -179,7 +170,6 @@ public class Game extends JFrame implements ActionListener {
 		try {
 			Thread.sleep(103000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         }
@@ -195,12 +185,10 @@ public class Game extends JFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 		
 		if(cmd.equals("Start")) {
-			//System.out.println(name.getText());
-			if (hasSet==false||name.getText().length()==0) {
+			if (hasSet==false||name.getText().length() == 0) {
 				JOptionPane.showMessageDialog(frame, "Please enter your name in the text box provided.");
 			}
-
-			else if(name.getText().length()>10) {
+			else if(name.getText().length() > 10) {
 				JOptionPane.showMessageDialog(frame, "Name is too long! Please enter your name again.");
 				hasSet=false;
 			}
