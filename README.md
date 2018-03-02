@@ -1,4 +1,4 @@
-# DungeonOfDoom
+# Dungeon Of Doom
 This was our rogue-like game that my team (6 students) developed as part of the coursework for the Software Engineering module at the University of Bath. Myself and one other team member did most of the development work for this project. We also created substantial documentation for the game and produced over 100 pages detailing the process and product. The overall aim of this module was to learn about Agile practices and how to implement these in a software engineering environement. Our game won the 'Most Fun to Play' award and we all received first-class marks for the overall project.
 
 ## Instructions
